@@ -1,6 +1,6 @@
-import { merge } from './merge' ;
+import merge from './merge' ;
 
-export function mergepairs ( compare, pairs ) {
+export default function mergepairs ( compare, pairs ) {
 
 	const A = pairs.next ;
 
@@ -10,6 +10,11 @@ export function mergepairs ( compare, pairs ) {
 
 	if ( B === null ) return A ;
 
-	return merge( compare , merge( A , B ) , mergepairs( B.next ) ) ;
+	// /!\ Order of the two following operations matter
+	//     because merge deletes B.next
+	const tail = mergepairs( compare , B ) ;
+	const head = merge( compare , A , B ) ;
+
+	return merge( compare , head , tail ) ;
 
 }

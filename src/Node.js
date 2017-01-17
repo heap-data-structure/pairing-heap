@@ -5,13 +5,14 @@ export class FakeNode {
 	}
 }
 
-export class Node {
+export default class Node {
 
 	constructor ( value ) {
 		this.value = value ;
 		this.prev = null;
 		this.next = null;
-		this.head = this.tail = new FakeNode();
+		this.children = new FakeNode();
+		this.lastchild = this.children;
 	}
 
 }

@@ -1,8 +1,12 @@
 
-export function append ( first , second ) {
+export default function append ( A , B ) {
 
-	second.prev = first.node.tail ;
+	B.prev = A.lastchild ;
 
-	first.node.tail = first.node.tail.next = second.node ;
+	B.prev.next = B ;
+
+	A.lastchild = B ;
+
+	B.next = null ;
 
 }

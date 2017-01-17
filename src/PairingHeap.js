@@ -1,26 +1,26 @@
-import { merge } from './merge' ;
-import { mergepairs } from './mergepairs' ;
-import { decreasekey } from './decreasekey' ;
-import { Node } from './Node' ;
+import merge from './merge' ;
+import mergepairs from './mergepairs' ;
+import decreasekey from './decreasekey' ;
+import Node from './Node' ;
 
-export class PairingHeap {
+export default class PairingHeap {
 
 	constructor (compare) {
 		this.compare = compare ;
-		this.head = null ;
+		this.min = null ;
 	}
 
 	/**
 	 * find-min: simply return the top element of the heap.
 	 */
 	head () {
-		if ( this.head === null ) return undefined;
-		return this.head.value;
+		if ( this.min === null ) return undefined;
+		return this.min.value;
 	}
 
 
 	headreference () {
-		return this.head;
+		return this.min;
 	}
 
 	/**
@@ -28,17 +28,17 @@ export class PairingHeap {
 	 * are employed.
 	 */
 	pop () {
-		if (this.head === null ) return undefined;
-		const ref = this.head;
-		this.head = mergepairs(this.compare, ref.head);
-		return ref.value;
+		if (this.min === null ) return undefined;
+		const min = this.min;
+		this.min = mergepairs(this.compare, min.children);
+		return min.value;
 	}
 
 	popreference () {
-		if (this.head === null ) return null;
-		const ref = this.head;
-		this.head = mergepairs(this.compare, ref.head);
-		return ref;
+		if (this.min === null ) return null;
+		const min = this.min;
+		this.min = mergepairs(this.compare, min.children);
+		return min;
 	}
 
 	/**
@@ -51,19 +51,19 @@ export class PairingHeap {
 	}
 
 	pushreference ( ref ) {
-		this.head = merge( this.compare , this.head , ref ) ;
+		this.min = merge( this.compare , this.min , ref ) ;
 		return ref;
 	}
 
 
 	merge ( other ) {
-		this.pushreference( other.head ) ;
+		this.pushreference( other.min ) ;
 	}
 
 
 	update ( ref , value ) {
 
-		const d = compare(value, ref.value) ;
+		const d = this.compare(value, ref.value) ;
 
 		if      ( d < 0 ) this.decreasekey(ref, value) ;
 		else if ( d > 0 ) this.increasekey(ref, value) ;
@@ -72,7 +72,7 @@ export class PairingHeap {
 	}
 
 	decreasekey ( ref , value ) {
-		this.head = decreasekey( this.head , ref , value ) ;
+		this.min = decreasekey( this.compare , this.min , ref , value ) ;
 	}
 
 	/**
@@ -82,24 +82,25 @@ export class PairingHeap {
 	increasekey ( ref , value ) {
 
 		this.delete(ref);
+
 		ref.value = value;
 		ref.prev = null;
 		ref.next = null;
-		ref.head.next = null ;
-		ref.tail = ref.head;
+		ref.children.next = null ;
+		ref.lastchild = ref.children ;
 
 		this.pushreference( ref ) ;
 	}
 
 	delete ( ref ) {
 
-		if ( ref === this.head ) return this.pop() ;
+		if ( ref === this.min ) return this.pop() ;
 
-		const head = mergepairs(this.compare, ref.head);
+		const successor = mergepairs(this.compare, ref.children);
 
-		head.prev = ref.prev ;
-		head.next = ref.next ;
-		head.prev.next = head.next.prev = head ;
+		successor.prev = ref.prev ;
+		successor.next = ref.next ;
+		successor.prev.next = successor.next.prev = successor ;
 
 	}
 

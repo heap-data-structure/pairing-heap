@@ -1,11 +1,11 @@
-import { merge } from './merge' ;
+import merge from './merge' ;
 
 /**
  * decrease-key: remove the subtree rooted at the key to be decreased, replace
  * the key with a smaller key, then merge the result back into the heap.
  */
 
-export function decreasekey ( head , ref , value ) {
+export default function decreasekey ( compare , min , ref , value ) {
 
 	ref.value = value ;
 
@@ -15,6 +15,6 @@ export function decreasekey ( head , ref , value ) {
 	ref.next = ref.prev = null ;
 
 	// merge
-	return merge(head, ref);
+	return merge(compare, min, ref);
 
 }

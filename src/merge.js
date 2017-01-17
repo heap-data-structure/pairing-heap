@@ -1,4 +1,4 @@
-import { append } from './append' ;
+import append from './append' ;
 
 /**
  * merge: compare the two root elements, the smaller remains the root of the
@@ -6,16 +6,19 @@ import { append } from './append' ;
  * root.
  */
 
-export function merge ( compare, first, second ) {
+export default function merge ( compare, A, B ) {
 
-	if ( compare( first.value , second.value ) < 0 ) {
-		append( first , second ) ;
-		return first ;
+	if ( A === null ) return B ;
+	if ( B === null ) return A ;
+
+	if ( compare( A.value , B.value ) < 0 ) {
+		append( A , B ) ;
+		return A ;
 	}
 
 	else {
-		append( second , first ) ;
-		return second ;
+		append( B , A ) ;
+		return B ;
 	}
 
 
