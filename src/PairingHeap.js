@@ -6,8 +6,8 @@ import Node from './Node' ;
 export default class PairingHeap {
 
 	constructor (compare) {
-		this.compare = compare ;
-		this.min = null ;
+		this.compare = compare ; // comparison function
+		this.min = null ;        // root node, must have .prev = .next = null at all times
 	}
 
 	/**
@@ -28,16 +28,22 @@ export default class PairingHeap {
 	 * are employed.
 	 */
 	pop () {
-		if (this.min === null ) return undefined;
-		const min = this.min;
-		this.min = mergepairs(this.compare, min.children);
-		return min.value;
+		const min = this.popreference();
+		return min === null ? undefined : min.value ;
 	}
 
+	/**
+	 * min.prev and min.next get reset to null
+	 * min.lastchild = min.children
+	 * min.children.next = null
+	 */
 	popreference () {
 		if (this.min === null ) return null;
 		const min = this.min;
 		this.min = mergepairs(this.compare, min.children);
+		min.lastchild = min.children;
+		min.prev = null;
+		min.next = null;
 		return min;
 	}
 
@@ -50,12 +56,21 @@ export default class PairingHeap {
 		return this.pushreference(node);
 	}
 
+	/**
+	 * /!\ ref.next = ref.prev = null
+	 * which means all references that get out of the tree must reset .next and
+	 * .prev and one must not call PairingHeap#pushreference with a reference
+	 * from inside this tree or another, except the root of another tree.
+	 */
 	pushreference ( ref ) {
 		this.min = merge( this.compare , this.min , ref ) ;
 		return ref;
 	}
 
 
+	/**
+	 * We can call pushreference since other.min.next = other.min.prev = null.
+	 */
 	merge ( other ) {
 		this.pushreference( other.min ) ;
 	}
@@ -72,7 +87,8 @@ export default class PairingHeap {
 	}
 
 	decreasekey ( ref , value ) {
-		this.min = decreasekey( this.compare , this.min , ref , value ) ;
+		if (ref === this.min) ref.value = value ;
+		else this.min = decreasekey( this.compare , this.min , ref , value ) ;
 	}
 
 	/**
@@ -84,23 +100,37 @@ export default class PairingHeap {
 		this.delete(ref);
 
 		ref.value = value;
-		ref.prev = null;
-		ref.next = null;
-		ref.children.next = null ;
-		ref.lastchild = ref.children ;
 
 		this.pushreference( ref ) ;
+
 	}
 
+	/**
+	 * ref.prev and ref.next get reset to null
+	 * ref.lastchild = ref.children
+	 * ref.children.next = null
+	 */
 	delete ( ref ) {
 
 		if ( ref === this.min ) return this.pop() ;
 
 		const successor = mergepairs(this.compare, ref.children);
+		ref.lastchild = ref.children;
 
-		successor.prev = ref.prev ;
+		// ref might be a leaf node
+		if (successor === null) {
+			ref.prev = null;
+			ref.next = null;
+			return;
+		}
+
+		successor.prev = ref.prev ; // must be !== null because of FakeNode
 		successor.next = ref.next ;
-		successor.prev.next = successor.next.prev = successor ;
+		successor.prev.next = successor ;
+		if (successor.next !== null) successor.next.prev = successor ;
+
+		ref.prev = null;
+		ref.next = null;
 
 	}
 
