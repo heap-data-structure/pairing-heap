@@ -32,7 +32,7 @@
     "codeclimate-test-reporter": "^0.4.0",
     "coveralls": "^2.11.15",
     "esdoc": "^0.5.2",
-    "nyc": "^10.0.0"
+    "nyc": "^10.1.2"
   },
   "homepage": "https://aureooms.github.io/js-pairing-heap",
   "keywords": [
