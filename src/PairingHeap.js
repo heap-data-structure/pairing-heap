@@ -63,6 +63,7 @@ export default class PairingHeap {
 
 
 	/**
+	 * Supposes the same comparison function is used in both trees.
 	 * We can call pushreference since other.min.next = other.min.prev = null.
 	 */
 	merge ( other ) {

@@ -1,4 +1,4 @@
-import merge from './merge' ;
+import { _merge } from './merge' ;
 
 /**
  * Recursively builds a heap from an iterator of nodes by merging them pair by
@@ -28,11 +28,14 @@ export default function mergepairs ( compare, prev ) {
 	// recursion fairy for the rest of the heap
 	const tail = mergepairs( compare , B ) ; // sets B.next = null
 
-	// merge A with B
-	const head = merge( compare , A , B ) ; // call to merge is valid
+	// merge A != null with B != null
+	const head = _merge( compare , A , B ) ; // call to _merge is valid
 
 	// merge with the rest
-	return merge( compare , head , tail ) ; // also valid because tail and head
-	                                        // are outputs of merge{pairs}
+	if (tail === null) return head;
+
+	// head != null, tail != null
+	return _merge( compare , head , tail ) ; // also valid because tail and head
+	                                         // are outputs of merge{pairs}
 
 }
