@@ -1,7 +1,7 @@
 {
   "name": "aureooms-js-pairing-heap",
   "description": "Pairing heap data structure library for JavaScript",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "author": "aureooms",
   "ava": {
     "require": [
@@ -24,17 +24,23 @@
   },
   "dependencies": {},
   "devDependencies": {
+    "aureooms-js-heap-spec": "^10.0.1",
     "ava": "^0.17.0",
     "babel-cli": "^6.18.0",
-    "babel-polyfill": "^6.16.0",
+    "babel-polyfill": "^6.20.0",
     "babel-preset-latest": "^6.16.0",
     "codeclimate-test-reporter": "^0.4.0",
-    "coveralls": "^2.11.14",
+    "coveralls": "^2.11.15",
     "esdoc": "^0.5.2",
-    "nyc": "^10.0.0"
+    "nyc": "^10.1.2"
   },
   "homepage": "https://aureooms.github.io/js-pairing-heap",
-  "keywords": ["data", "heap", "pairing", "structure"],
+  "keywords": [
+    "data",
+    "heap",
+    "pairing",
+    "structure"
+  ],
   "license": "AGPL-3.0",
   "main": "lib/index.js",
   "repository": {
