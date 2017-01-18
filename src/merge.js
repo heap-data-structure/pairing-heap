@@ -1,4 +1,4 @@
-import append from './append' ;
+import prepend from './prepend' ;
 
 /**
  * merge: compare the two root elements, the smaller remains the root of the
@@ -20,8 +20,8 @@ export default function merge ( compare, A, B ) {
 
 	if ( B === null ) return A ;
 
-	if ( compare( A.value , B.value ) < 0 ) return append( A , B ) ;
+	if ( compare( A.value , B.value ) < 0 ) return prepend( A , B ) ;
 
-	else                                    return append( B , A ) ;
+	else                                    return prepend( B , A ) ;
 
 }

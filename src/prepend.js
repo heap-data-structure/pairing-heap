@@ -1,6 +1,6 @@
 
 /**
- * Set B as the lastchild of A.
+ * Set B as the first child of A.
  *
  * /!\ Precondition:
  *   1. A != null
@@ -11,13 +11,13 @@
  * @param {Node} B
  * @return {Node} The input node A with .next = .prev = null.
  */
-export default function append ( A , B ) {
+export default function prepend ( A , B ) {
 
-	B.prev = A.lastchild ;
+	B.prev = A.children ;
+	B.next = A.children.next ;
+	A.children.next = B ;
 
-	B.prev.next = B ;
-
-	A.lastchild = B ;
+	if (B.next !== null) B.next.prev = B ;
 
 	return A ;
 

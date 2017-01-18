@@ -34,14 +34,12 @@ export default class PairingHeap {
 
 	/**
 	 * min.prev and min.next get reset to null
-	 * min.lastchild = min.children
 	 * min.children.next = null
 	 */
 	popreference () {
 		if (this.min === null ) return null;
 		const min = this.min;
 		this.min = mergepairs(this.compare, min.children);
-		min.lastchild = min.children;
 		min.prev = null;
 		min.next = null;
 		return min;
@@ -115,7 +113,6 @@ export default class PairingHeap {
 	/**
 	 * ref must be internal
 	 * ref.prev and ref.next get reset to null
-	 * ref.lastchild = ref.children
 	 * ref.children.next = null
 	 */
 	delete ( ref ) {
@@ -126,7 +123,6 @@ export default class PairingHeap {
 		}
 
 		const successor = mergepairs(this.compare, ref.children);
-		ref.lastchild = ref.children;
 
 		// ref might be a leaf node
 		if (successor === null) {
