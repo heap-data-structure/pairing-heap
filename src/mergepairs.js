@@ -36,6 +36,6 @@ export default function mergepairs ( compare, prev ) {
 
 	// head != null, tail != null
 	return merge( compare , head , tail ) ; // also valid because tail and head
-	                                         // are outputs of merge{pairs}
+	                                        // are outputs of merge{pairs}
 
 }

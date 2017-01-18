@@ -122,7 +122,6 @@ export default class PairingHeap {
 	/**
 	 * ref must be internal
 	 * ref.prev and ref.next get reset to null
-	 * ref.children.next = null
 	 */
 	delete ( ref ) {
 
@@ -133,11 +132,61 @@ export default class PairingHeap {
 
 		const successor = mergepairs(this.compare, ref.children); // ref.children.next = null
 
-		// ref might be a leaf node
+		// ref has no children
 		if (successor === null) {
+
+			//  _       _       _
+			// | | --> | | --> | |
+			// |_| <-- |_| <-- |_|
+			//  P       R       N
+
+			// detach ref and link ref.prev to ref.next
+			//
+			//  _               _
+			// | | ----------> | |
+			// |_| <    _   -> |_|
+			//  P   \  | | /  / N
+			//       - |_| <-/
+			//          R
+			//
+			ref.prev.next = ref.next ; // must be != null because ref != min
+
+			if (ref.next !== null) {
+				//
+				//  _               _
+				// | | ----------> | |
+				// |_| <---------- |_|
+				//  P       _       N
+				//  ^      | | -----^
+				//  |----- |_|
+				//          R
+				//
+				ref.next.prev = ref.prev ;
+				//
+				//  _               _
+				// | | ----------> | |
+				// |_| <---------- |_|
+				//  P       _       N
+				//  ^      | |
+				//  |----- |_|
+				//          R
+				//
+				ref.next = null;
+			}
+
+			//
+			//  _               _
+			// | | ----------> | |
+			// |_| <---------- |_|
+			//  P       _       N
+			//         | |
+			//         |_|
+			//          R
+			//
 			ref.prev = null;
-			ref.next = null;
+
 			return;
+
 		}
 
 		successor.prev = ref.prev ; // must be != null because ref != min
@@ -154,4 +203,3 @@ export default class PairingHeap {
 
 
 }
-
