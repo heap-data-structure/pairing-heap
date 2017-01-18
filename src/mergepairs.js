@@ -25,12 +25,14 @@ export default function mergepairs ( compare, prev ) {
 	if ( B === null ) return A ;
 	B.prev = null;
 
-	// /!\ Order of the two following operations matter
-	//     because merge deletes B.next
+	// recursion fairy for the rest of the heap
 	const tail = mergepairs( compare , B ) ; // sets B.next = null
+
+	// merge A with B
 	const head = merge( compare , A , B ) ; // call to merge is valid
 
+	// merge with the rest
 	return merge( compare , head , tail ) ; // also valid because tail and head
-	                                        // are outputs of
+	                                        // are outputs of merge{pairs}
 
 }
