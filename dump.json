@@ -1,0 +1,1644 @@
+[
+  {
+    "__docId__": 0,
+    "kind": "file",
+    "name": "src/Node.js",
+    "content": "\nexport default class Node {\n\n\tconstructor ( value ) {\n\t\tthis.value = value; // key\n\t\tthis.prev = null;   // pointer to previous sibling\n\t\tthis.next = null;   // pointer to next sibling\n\t\tthis.children = new Beginning(); // pointer to children list\n\t\t                                // first child is this.children.next\n\t}\n\n}\n\n/**\n * Avoids if-then-else logic when manipulating child nodes\n */\nexport class Beginning {\n\tconstructor () {\n\t\tthis.next = null;\n\t}\n}\n\n//export class End {\n\t//constructor (prev) {\n\t\t//this.prev = prev;\n\t//}\n//}\n",
+    "static": true,
+    "longname": "src/Node.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 1,
+    "kind": "class",
+    "name": "Node",
+    "memberof": "src/Node.js",
+    "static": true,
+    "longname": "src/Node.js~Node",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-pairing-heap/src/Node.js",
+    "importStyle": "Node",
+    "description": null,
+    "lineNumber": 2,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "interface": false
+  },
+  {
+    "__docId__": 2,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/Node.js~Node",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Node.js~Node#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "value",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 3,
+    "kind": "member",
+    "name": "value",
+    "memberof": "src/Node.js~Node",
+    "static": false,
+    "longname": "src/Node.js~Node#value",
+    "access": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 4,
+    "kind": "member",
+    "name": "prev",
+    "memberof": "src/Node.js~Node",
+    "static": false,
+    "longname": "src/Node.js~Node#prev",
+    "access": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 5,
+    "kind": "member",
+    "name": "next",
+    "memberof": "src/Node.js~Node",
+    "static": false,
+    "longname": "src/Node.js~Node#next",
+    "access": null,
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 6,
+    "kind": "member",
+    "name": "children",
+    "memberof": "src/Node.js~Node",
+    "static": false,
+    "longname": "src/Node.js~Node#children",
+    "access": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 7,
+    "kind": "class",
+    "name": "Beginning",
+    "memberof": "src/Node.js",
+    "static": true,
+    "longname": "src/Node.js~Beginning",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-pairing-heap/src/Node.js",
+    "importStyle": "{Beginning}",
+    "description": "Avoids if-then-else logic when manipulating child nodes",
+    "lineNumber": 17,
+    "interface": false
+  },
+  {
+    "__docId__": 8,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/Node.js~Beginning",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Node.js~Beginning#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 18,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": []
+  },
+  {
+    "__docId__": 9,
+    "kind": "member",
+    "name": "next",
+    "memberof": "src/Node.js~Beginning",
+    "static": false,
+    "longname": "src/Node.js~Beginning#next",
+    "access": null,
+    "description": null,
+    "lineNumber": 19,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 10,
+    "kind": "file",
+    "name": "src/PairingHeap.js",
+    "content": "import merge from './merge' ;\nimport mergepairs from './mergepairs' ;\nimport decreasekey from './decreasekey' ;\nimport Node from './Node' ;\n\nexport default class PairingHeap {\n\n\tconstructor (compare) {\n\t\tthis.compare = compare ; // comparison function\n\t\tthis.min = null ;        // root node, must have .prev = .next = null at all times\n\t}\n\n\t/**\n\t * find-min: simply return the top element of the heap.\n\t */\n\thead () {\n\t\tif ( this.min === null ) return undefined;\n\t\treturn this.min.value;\n\t}\n\n\n\theadreference () {\n\t\treturn this.min;\n\t}\n\n\t/**\n\t * delete-min: remove the root and merge its subtrees. Various strategies\n\t * are employed.\n\t */\n\tpop () {\n\t\tconst min = this.popreference();\n\t\treturn min === null ? undefined : min.value ;\n\t}\n\n\t/**\n\t */\n\tpopreference () {\n\t\tif (this.min === null ) return null;\n\t\tconst min = this.min;\n\t\tthis.min = mergepairs(this.compare, min.children); // min.children.next = null\n\t\treturn min;\n\t}\n\n\t/**\n\t * insert: create a new heap for the inserted element and merge into the\n\t * original heap.\n\t */\n\tpush ( value ) {\n\t\tconst node = new Node(value) ;\n\t\treturn this.pushreference(node);\n\t}\n\n\t/**\n\t * /!\\ ref.next = ref.prev = null which means all references that are\n\t * external to the tree must reset .next and .prev and one must not call\n\t * PairingHeap#pushreference with an internal reference from this tree or\n\t * another, except the root of another tree.\n\t */\n\tpushreference ( ref ) {\n\t\tif (this.min === null) this.min = ref;\n\t\telse {\n\t\t\t// this.min != null != ref\n\t\t\tthis.min = merge( this.compare , this.min , ref ) ;\n\t\t}\n\t\treturn ref;\n\t}\n\n\n\t/**\n\t * Supposes the same comparison function is used in both trees.\n\t * We can call pushreference since other.min.next = other.min.prev = null.\n\t */\n\tmerge ( other ) {\n\t\tthis.pushreference( other.min ) ;\n\t}\n\n\n\t/**\n\t * @param {Node} ref Non-null internal node object.\n\t * @param {Object} value The new value for ref.\n\t */\n\tupdate ( ref , value ) {\n\n\t\tconst d = this.compare(value, ref.value) ;\n\n\t\tif      ( d < 0 ) this.decreasekey(ref, value) ;\n\t\telse if ( d > 0 ) this.increasekey(ref, value) ;\n\t\telse              ref.value = value ;\n\n\t}\n\n\t/**\n\t * @param {Node} ref Non-null internal node object.\n\t * @param {Object} value The new value for ref.\n\t */\n\tdecreasekey ( ref , value ) {\n\t\tif (ref === this.min) ref.value = value ;\n\t\telse {\n\t\t\t// this.min != null, ref != null\n\t\t\tthis.min = decreasekey( this.compare , this.min , ref , value ) ;\n\t\t}\n\t}\n\n\t/**\n\t * increase-key: remove the item at the key to be decreased, replace\n\t * the key with a smaller key, then merge the result back into the heap.\n\t *\n\t * @param {Node} ref Non-null internal node object.\n\t * @param {Object} value The new value for ref.\n\t *\n\t */\n\tincreasekey ( ref , value ) {\n\n\t\tthis.delete(ref);\n\n\t\tref.value = value;\n\n\t\tthis.pushreference( ref ) ;\n\n\t}\n\n\t/**\n\t * ref must be internal\n\t * ref.prev and ref.next get reset to null\n\t */\n\tdelete ( ref ) {\n\n\t\tif ( ref === this.min ) {\n\t\t\tthis.popreference() ;\n\t\t\treturn ;\n\t\t}\n\n\t\tconst successor = mergepairs(this.compare, ref.children); // ref.children.next = null\n\n\t\t// ref has no children\n\t\tif (successor === null) {\n\n\t\t\t//  _       _       _\n\t\t\t// | | --> | | --> | |\n\t\t\t// |_| <-- |_| <-- |_|\n\t\t\t//  P       R       N\n\n\t\t\t// detach ref and link ref.prev to ref.next\n\t\t\t//\n\t\t\t//  _               _\n\t\t\t// | | ----------> | |\n\t\t\t// |_| <    _   -> |_|\n\t\t\t//  P   \\  | | /  / N\n\t\t\t//       - |_| <-/\n\t\t\t//          R\n\t\t\t//\n\t\t\tref.prev.next = ref.next ; // must be != null because ref != min\n\n\t\t\tif (ref.next !== null) {\n\t\t\t\t//\n\t\t\t\t//  _               _\n\t\t\t\t// | | ----------> | |\n\t\t\t\t// |_| <---------- |_|\n\t\t\t\t//  P       _       N\n\t\t\t\t//  ^      | | -----^\n\t\t\t\t//  |----- |_|\n\t\t\t\t//          R\n\t\t\t\t//\n\t\t\t\tref.next.prev = ref.prev ;\n\t\t\t\t//\n\t\t\t\t//  _               _\n\t\t\t\t// | | ----------> | |\n\t\t\t\t// |_| <---------- |_|\n\t\t\t\t//  P       _       N\n\t\t\t\t//  ^      | |\n\t\t\t\t//  |----- |_|\n\t\t\t\t//          R\n\t\t\t\t//\n\t\t\t\tref.next = null;\n\t\t\t}\n\n\t\t\t//\n\t\t\t//  _               _\n\t\t\t// | | ----------> | |\n\t\t\t// |_| <---------- |_|\n\t\t\t//  P       _       N\n\t\t\t//         | |\n\t\t\t//         |_|\n\t\t\t//          R\n\t\t\t//\n\t\t\tref.prev = null;\n\n\t\t\treturn;\n\n\t\t}\n\n\t\tsuccessor.prev = ref.prev ; // must be != null because ref != min\n\t\tsuccessor.prev.next = successor ;\n\t\tref.prev = null;\n\n\t\tif (ref.next !== null) {\n\t\t\tsuccessor.next = ref.next ; // might be null\n\t\t\tsuccessor.next.prev = successor ;\n\t\t\tref.next = null;\n\t\t}\n\n\t}\n\n\n}\n",
+    "static": true,
+    "longname": "src/PairingHeap.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 11,
+    "kind": "class",
+    "name": "PairingHeap",
+    "memberof": "src/PairingHeap.js",
+    "static": true,
+    "longname": "src/PairingHeap.js~PairingHeap",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-pairing-heap/src/PairingHeap.js",
+    "importStyle": "PairingHeap",
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "interface": false
+  },
+  {
+    "__docId__": 12,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/PairingHeap.js~PairingHeap",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/PairingHeap.js~PairingHeap#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "compare",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 13,
+    "kind": "member",
+    "name": "compare",
+    "memberof": "src/PairingHeap.js~PairingHeap",
+    "static": false,
+    "longname": "src/PairingHeap.js~PairingHeap#compare",
+    "access": null,
+    "description": null,
+    "lineNumber": 9,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 14,
+    "kind": "member",
+    "name": "min",
+    "memberof": "src/PairingHeap.js~PairingHeap",
+    "static": false,
+    "longname": "src/PairingHeap.js~PairingHeap#min",
+    "access": null,
+    "description": null,
+    "lineNumber": 10,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 15,
+    "kind": "method",
+    "name": "head",
+    "memberof": "src/PairingHeap.js~PairingHeap",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/PairingHeap.js~PairingHeap#head",
+    "access": null,
+    "description": "find-min: simply return the top element of the heap.",
+    "lineNumber": 16,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 16,
+    "kind": "method",
+    "name": "headreference",
+    "memberof": "src/PairingHeap.js~PairingHeap",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/PairingHeap.js~PairingHeap#headreference",
+    "access": null,
+    "description": null,
+    "lineNumber": 22,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 17,
+    "kind": "method",
+    "name": "pop",
+    "memberof": "src/PairingHeap.js~PairingHeap",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/PairingHeap.js~PairingHeap#pop",
+    "access": null,
+    "description": "delete-min: remove the root and merge its subtrees. Various strategies\nare employed.",
+    "lineNumber": 30,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 18,
+    "kind": "method",
+    "name": "popreference",
+    "memberof": "src/PairingHeap.js~PairingHeap",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/PairingHeap.js~PairingHeap#popreference",
+    "access": null,
+    "description": "",
+    "lineNumber": 37,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 19,
+    "kind": "member",
+    "name": "min",
+    "memberof": "src/PairingHeap.js~PairingHeap",
+    "static": false,
+    "longname": "src/PairingHeap.js~PairingHeap#min",
+    "access": null,
+    "description": null,
+    "lineNumber": 40,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 20,
+    "kind": "method",
+    "name": "push",
+    "memberof": "src/PairingHeap.js~PairingHeap",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/PairingHeap.js~PairingHeap#push",
+    "access": null,
+    "description": "insert: create a new heap for the inserted element and merge into the\noriginal heap.",
+    "lineNumber": 48,
+    "params": [
+      {
+        "name": "value",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 21,
+    "kind": "method",
+    "name": "pushreference",
+    "memberof": "src/PairingHeap.js~PairingHeap",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/PairingHeap.js~PairingHeap#pushreference",
+    "access": null,
+    "description": "/!\\ ref.next = ref.prev = null which means all references that are\nexternal to the tree must reset .next and .prev and one must not call\nPairingHeap#pushreference with an internal reference from this tree or\nanother, except the root of another tree.",
+    "lineNumber": 59,
+    "params": [
+      {
+        "name": "ref",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 22,
+    "kind": "member",
+    "name": "min",
+    "memberof": "src/PairingHeap.js~PairingHeap",
+    "static": false,
+    "longname": "src/PairingHeap.js~PairingHeap#min",
+    "access": null,
+    "description": null,
+    "lineNumber": 60,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 23,
+    "kind": "member",
+    "name": "min",
+    "memberof": "src/PairingHeap.js~PairingHeap",
+    "static": false,
+    "longname": "src/PairingHeap.js~PairingHeap#min",
+    "access": null,
+    "description": null,
+    "lineNumber": 63,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 24,
+    "kind": "method",
+    "name": "merge",
+    "memberof": "src/PairingHeap.js~PairingHeap",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/PairingHeap.js~PairingHeap#merge",
+    "access": null,
+    "description": "Supposes the same comparison function is used in both trees.\nWe can call pushreference since other.min.next = other.min.prev = null.",
+    "lineNumber": 73,
+    "params": [
+      {
+        "name": "other",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 25,
+    "kind": "method",
+    "name": "update",
+    "memberof": "src/PairingHeap.js~PairingHeap",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/PairingHeap.js~PairingHeap#update",
+    "access": null,
+    "description": "",
+    "lineNumber": 82,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Node"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "ref",
+        "description": "Non-null internal node object."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "value",
+        "description": "The new value for ref."
+      }
+    ]
+  },
+  {
+    "__docId__": 26,
+    "kind": "method",
+    "name": "decreasekey",
+    "memberof": "src/PairingHeap.js~PairingHeap",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/PairingHeap.js~PairingHeap#decreasekey",
+    "access": null,
+    "description": "",
+    "lineNumber": 96,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Node"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "ref",
+        "description": "Non-null internal node object."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "value",
+        "description": "The new value for ref."
+      }
+    ]
+  },
+  {
+    "__docId__": 27,
+    "kind": "member",
+    "name": "min",
+    "memberof": "src/PairingHeap.js~PairingHeap",
+    "static": false,
+    "longname": "src/PairingHeap.js~PairingHeap#min",
+    "access": null,
+    "description": null,
+    "lineNumber": 100,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 28,
+    "kind": "method",
+    "name": "increasekey",
+    "memberof": "src/PairingHeap.js~PairingHeap",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/PairingHeap.js~PairingHeap#increasekey",
+    "access": null,
+    "description": "increase-key: remove the item at the key to be decreased, replace\nthe key with a smaller key, then merge the result back into the heap.",
+    "lineNumber": 112,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Node"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "ref",
+        "description": "Non-null internal node object."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "value",
+        "description": "The new value for ref."
+      }
+    ]
+  },
+  {
+    "__docId__": 29,
+    "kind": "method",
+    "name": "delete",
+    "memberof": "src/PairingHeap.js~PairingHeap",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/PairingHeap.js~PairingHeap#delete",
+    "access": null,
+    "description": "ref must be internal\nref.prev and ref.next get reset to null",
+    "lineNumber": 126,
+    "params": [
+      {
+        "name": "ref",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 30,
+    "kind": "file",
+    "name": "src/decreasekey.js",
+    "content": "import merge from './merge' ;\n\n/**\n * decrease-key: remove the subtree rooted at the key to be decreased, replace\n * the key with a smaller key, then merge the result back into the heap.\n *\n * @param {Function} compare Comparison function for keys.\n * @param {Node} min Current minimum-key node != null with .prev = .next = null.\n * @param {Node} node Node != null to update with .prev != null.\n * @param {Object} value The new value for the key of the node to update.\n * @returns {Node} Returns the node containing the minimum key.\n */\nexport default function decreasekey ( compare , min , node , value ) {\n\n\t// update node's key\n\tnode.value = value ;\n\n\t// remove node from tree\n\tnode.prev.next = node.next ; // by assumption node.prev != null\n\tif (node.next !== null) {\n\t\tnode.next.prev = node.prev ;\n\t\tnode.next = null ;\n\t}\n\tnode.prev = null ;\n\n\t// merge, remember we move the whole subtree with children\n\t// node.prev = node.next = null at this point so safe to call merge\n\t// min != null and node != null\n\treturn merge(compare, min, node);\n\n}\n",
+    "static": true,
+    "longname": "src/decreasekey.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 31,
+    "kind": "function",
+    "name": "decreasekey",
+    "memberof": "src/decreasekey.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/decreasekey.js~decreasekey",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-pairing-heap/src/decreasekey.js",
+    "importStyle": "decreasekey",
+    "description": "decrease-key: remove the subtree rooted at the key to be decreased, replace\nthe key with a smaller key, then merge the result back into the heap.",
+    "lineNumber": 13,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{Node} Returns the node containing the minimum key."
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "compare",
+        "description": "Comparison function for keys."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Node"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "min",
+        "description": "Current minimum-key node != null with .prev = .next = null."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Node"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "node",
+        "description": "Node != null to update with .prev != null."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "value",
+        "description": "The new value for the key of the node to update."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Node"
+      ],
+      "spread": false,
+      "description": "Returns the node containing the minimum key."
+    }
+  },
+  {
+    "__docId__": 32,
+    "kind": "file",
+    "name": "src/index.js",
+    "content": "import Node from './Node' ;\nimport PairingHeap from './PairingHeap' ;\nimport prepend from './prepend' ;\nimport decreasekey from './decreasekey' ;\nimport merge from './merge' ;\nimport mergepairs from './mergepairs' ;\n\nexport default PairingHeap ;\n\nexport {\n\tNode ,\n\tPairingHeap ,\n\tprepend ,\n\tdecreasekey ,\n\tmerge ,\n\tmergepairs ,\n} ;\n",
+    "static": true,
+    "longname": "src/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 33,
+    "kind": "file",
+    "name": "src/merge.js",
+    "content": "import prepend from './prepend' ;\n\n/**\n * merge: compare the two root elements, the smaller remains the root of the\n * result, the larger element and its subtree is appended as a child of this\n * root.\n *\n * /!\\ Precondition:\n *   1. A != null and A.next = A.prev = null\n *   2. B != null and B.next = B.prev = null\n *\n * @param {Function} compare Comparison functions for keys.\n * @param {Node} A The first input node.\n * @param {Node} B The second input node.\n * @returns {Node} The input node with smallest key with .next = .prev = null.\n */\nexport default function merge ( compare, A, B ) {\n\n\tif ( compare( A.value , B.value ) < 0 ) return prepend( A , B ) ;\n\n\telse                                    return prepend( B , A ) ;\n\n}\n",
+    "static": true,
+    "longname": "src/merge.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 34,
+    "kind": "function",
+    "name": "merge",
+    "memberof": "src/merge.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/merge.js~merge",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-pairing-heap/src/merge.js",
+    "importStyle": "merge",
+    "description": "merge: compare the two root elements, the smaller remains the root of the\nresult, the larger element and its subtree is appended as a child of this\nroot.\n\n/!\\ Precondition:\n  1. A != null and A.next = A.prev = null\n  2. B != null and B.next = B.prev = null",
+    "lineNumber": 17,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{Node} The input node with smallest key with .next = .prev = null."
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "compare",
+        "description": "Comparison functions for keys."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Node"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "A",
+        "description": "The first input node."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Node"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "B",
+        "description": "The second input node."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Node"
+      ],
+      "spread": false,
+      "description": "The input node with smallest key with .next = .prev = null."
+    }
+  },
+  {
+    "__docId__": 35,
+    "kind": "file",
+    "name": "src/mergepairs.js",
+    "content": "import merge from './merge' ;\n\n/**\n * Recursively builds a heap from an iterator of nodes by merging them pair by\n * pair.\n *\n * @param {Function} compare Comparison function for node keys.\n * @param {Node} prev Last node before first of list. First node is `prev.next`.\n * @returns {Node} The root node with .next = .prev = null or null for an empty\n *                 iterator.\n */\nexport default function mergepairs ( compare, prev ) {\n\n\t// unpick linked list starting at prev.next\n\n\tconst A = prev.next ;\n\tprev.next = null;\n\n\tif ( A === null ) return null ;\n\tA.prev = null;\n\n\tconst B = A.next ;\n\tA.next = null;\n\n\tif ( B === null ) return A ;\n\tB.prev = null;\n\n\t// recursion fairy for the rest of the heap\n\tconst tail = mergepairs( compare , B ) ; // sets B.next = null\n\n\t// merge A != null with B != null\n\tconst head = merge( compare , A , B ) ; // call to merge is valid\n\n\t// merge with the rest\n\tif (tail === null) return head;\n\n\t// head != null, tail != null\n\treturn merge( compare , head , tail ) ; // also valid because tail and head\n\t                                        // are outputs of merge{pairs}\n\n}\n",
+    "static": true,
+    "longname": "src/mergepairs.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 36,
+    "kind": "function",
+    "name": "mergepairs",
+    "memberof": "src/mergepairs.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/mergepairs.js~mergepairs",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-pairing-heap/src/mergepairs.js",
+    "importStyle": "mergepairs",
+    "description": "Recursively builds a heap from an iterator of nodes by merging them pair by\npair.",
+    "lineNumber": 12,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{Node} The root node with .next = .prev = null or null for an empty\n                iterator."
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "compare",
+        "description": "Comparison function for node keys."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Node"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "prev",
+        "description": "Last node before first of list. First node is `prev.next`."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Node"
+      ],
+      "spread": false,
+      "description": "The root node with .next = .prev = null or null for an empty\n                iterator."
+    }
+  },
+  {
+    "__docId__": 37,
+    "kind": "file",
+    "name": "src/prepend.js",
+    "content": "\n/**\n * Set B as the first child of A.\n *\n * /!\\ Precondition:\n *   1. A != null\n *   2. B != null\n *   3. A.next = A.prev = B.next = B.prev = null\n *\n * @param {Node} A\n * @param {Node} B\n * @return {Node} The input node A with .next = .prev = null.\n */\nexport default function prepend ( A , B ) {\n\n\tB.prev = A.children ;\n\tB.next = A.children.next ;\n\tA.children.next = B ;\n\n\tif (B.next !== null) B.next.prev = B ;\n\n\treturn A ;\n\n}\n",
+    "static": true,
+    "longname": "src/prepend.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 38,
+    "kind": "function",
+    "name": "prepend",
+    "memberof": "src/prepend.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/prepend.js~prepend",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-pairing-heap/src/prepend.js",
+    "importStyle": "prepend",
+    "description": "Set B as the first child of A.\n\n/!\\ Precondition:\n  1. A != null\n  2. B != null\n  3. A.next = A.prev = B.next = B.prev = null",
+    "lineNumber": 14,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Node"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "A",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Node"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "B",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Node"
+      ],
+      "spread": false,
+      "description": "The input node A with .next = .prev = null."
+    }
+  },
+  {
+    "__docId__": 40,
+    "kind": "external",
+    "name": "Infinity",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Infinity",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 41,
+    "kind": "external",
+    "name": "NaN",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~NaN",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 42,
+    "kind": "external",
+    "name": "undefined",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~undefined",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 43,
+    "kind": "external",
+    "name": "null",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~null",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 44,
+    "kind": "external",
+    "name": "Object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Object",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 45,
+    "kind": "external",
+    "name": "object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~object",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 46,
+    "kind": "external",
+    "name": "Function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Function",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 47,
+    "kind": "external",
+    "name": "function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~function",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 48,
+    "kind": "external",
+    "name": "Boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Boolean",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 49,
+    "kind": "external",
+    "name": "boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~boolean",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 50,
+    "kind": "external",
+    "name": "Symbol",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Symbol",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 51,
+    "kind": "external",
+    "name": "Error",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Error",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 52,
+    "kind": "external",
+    "name": "EvalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~EvalError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 53,
+    "kind": "external",
+    "name": "InternalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~InternalError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 54,
+    "kind": "external",
+    "name": "RangeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~RangeError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 55,
+    "kind": "external",
+    "name": "ReferenceError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~ReferenceError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 56,
+    "kind": "external",
+    "name": "SyntaxError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~SyntaxError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 57,
+    "kind": "external",
+    "name": "TypeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~TypeError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 58,
+    "kind": "external",
+    "name": "URIError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~URIError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 59,
+    "kind": "external",
+    "name": "Number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Number",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 60,
+    "kind": "external",
+    "name": "number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~number",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 61,
+    "kind": "external",
+    "name": "Date",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Date",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 62,
+    "kind": "external",
+    "name": "String",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~String",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 63,
+    "kind": "external",
+    "name": "string",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~string",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 64,
+    "kind": "external",
+    "name": "RegExp",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~RegExp",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 65,
+    "kind": "external",
+    "name": "Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 66,
+    "kind": "external",
+    "name": "Int8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int8Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 67,
+    "kind": "external",
+    "name": "Uint8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint8Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 68,
+    "kind": "external",
+    "name": "Uint8ClampedArray",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint8ClampedArray",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 69,
+    "kind": "external",
+    "name": "Int16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int16Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 70,
+    "kind": "external",
+    "name": "Uint16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint16Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 71,
+    "kind": "external",
+    "name": "Int32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int32Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 72,
+    "kind": "external",
+    "name": "Uint32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint32Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 73,
+    "kind": "external",
+    "name": "Float32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Float32Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 74,
+    "kind": "external",
+    "name": "Float64Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Float64Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 75,
+    "kind": "external",
+    "name": "Map",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Map",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 76,
+    "kind": "external",
+    "name": "Set",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Set",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 77,
+    "kind": "external",
+    "name": "WeakMap",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~WeakMap",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 78,
+    "kind": "external",
+    "name": "WeakSet",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~WeakSet",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 79,
+    "kind": "external",
+    "name": "ArrayBuffer",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~ArrayBuffer",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 80,
+    "kind": "external",
+    "name": "DataView",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~DataView",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 81,
+    "kind": "external",
+    "name": "JSON",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~JSON",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 82,
+    "kind": "external",
+    "name": "Promise",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Promise",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 83,
+    "kind": "external",
+    "name": "Generator",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Generator",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 84,
+    "kind": "external",
+    "name": "GeneratorFunction",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~GeneratorFunction",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 85,
+    "kind": "external",
+    "name": "Reflect",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Reflect",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 86,
+    "kind": "external",
+    "name": "Proxy",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Proxy",
+    "access": null,
+    "description": "",
+    "lineNumber": 193,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 88,
+    "kind": "external",
+    "name": "CanvasRenderingContext2D",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~CanvasRenderingContext2D",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 89,
+    "kind": "external",
+    "name": "DocumentFragment",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~DocumentFragment",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 90,
+    "kind": "external",
+    "name": "Element",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Element",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~Element",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 91,
+    "kind": "external",
+    "name": "Event",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Event",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~Event",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 92,
+    "kind": "external",
+    "name": "Node",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Node",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~Node",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 93,
+    "kind": "external",
+    "name": "NodeList",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/NodeList",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~NodeList",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 94,
+    "kind": "external",
+    "name": "XMLHttpRequest",
+    "externalLink": "https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~XMLHttpRequest",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 95,
+    "kind": "external",
+    "name": "AudioContext",
+    "externalLink": "https://developer.mozilla.org/en/docs/Web/API/AudioContext",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~AudioContext",
+    "access": null,
+    "description": "",
+    "lineNumber": 34,
+    "builtinExternal": true
+  }
+]

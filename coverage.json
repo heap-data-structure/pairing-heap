@@ -1,0 +1,52 @@
+{
+  "coverage": "53.57%",
+  "expectCount": 28,
+  "actualCount": 15,
+  "files": {
+    "src/Node.js": {
+      "expectCount": 9,
+      "actualCount": 1,
+      "undocumentLines": [
+        2,
+        8,
+        18,
+        4,
+        19,
+        7,
+        6,
+        5
+      ]
+    },
+    "src/PairingHeap.js": {
+      "expectCount": 15,
+      "actualCount": 10,
+      "undocumentLines": [
+        6,
+        9,
+        8,
+        22,
+        10
+      ]
+    },
+    "src/decreasekey.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/merge.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/mergepairs.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/prepend.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    }
+  }
+}
