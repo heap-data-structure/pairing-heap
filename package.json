@@ -1,7 +1,7 @@
 {
   "name": "aureooms-js-pairing-heap",
   "description": "Pairing heap data structure library for JavaScript",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "author": "aureooms",
   "ava": {
     "require": [
