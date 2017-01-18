@@ -51,13 +51,17 @@ export default class PairingHeap {
 	}
 
 	/**
-	 * /!\ ref.next = ref.prev = null
-	 * which means all references that get out of the tree must reset .next and
-	 * .prev and one must not call PairingHeap#pushreference with a reference
-	 * from inside this tree or another, except the root of another tree.
+	 * /!\ ref.next = ref.prev = null which means all references that are
+	 * external to the tree must reset .next and .prev and one must not call
+	 * PairingHeap#pushreference with an internal reference from this tree or
+	 * another, except the root of another tree.
 	 */
 	pushreference ( ref ) {
-		this.min = merge( this.compare , this.min , ref ) ;
+		if (this.min === null) this.min = ref;
+		else {
+			// this.min != null != ref
+			this.min = merge( this.compare , this.min , ref ) ;
+		}
 		return ref;
 	}
 
@@ -71,6 +75,10 @@ export default class PairingHeap {
 	}
 
 
+	/**
+	 * @param {Node} ref Non-null internal node object.
+	 * @param {Object} value The new value for ref.
+	 */
 	update ( ref , value ) {
 
 		const d = this.compare(value, ref.value) ;
@@ -82,19 +90,23 @@ export default class PairingHeap {
 	}
 
 	/**
-	 * ref must be internal
-	 *
+	 * @param {Node} ref Non-null internal node object.
+	 * @param {Object} value The new value for ref.
 	 */
 	decreasekey ( ref , value ) {
 		if (ref === this.min) ref.value = value ;
-		else this.min = decreasekey( this.compare , this.min , ref , value ) ;
+		else {
+			// this.min != null, ref != null
+			this.min = decreasekey( this.compare , this.min , ref , value ) ;
+		}
 	}
 
 	/**
 	 * increase-key: remove the item at the key to be decreased, replace
 	 * the key with a smaller key, then merge the result back into the heap.
 	 *
-	 * ref must be internal
+	 * @param {Node} ref Non-null internal node object.
+	 * @param {Object} value The new value for ref.
 	 *
 	 */
 	increasekey ( ref , value ) {
@@ -128,7 +140,7 @@ export default class PairingHeap {
 			return;
 		}
 
-		successor.prev = ref.prev ; // must be !== null because ref != min
+		successor.prev = ref.prev ; // must be != null because ref != min
 		successor.prev.next = successor ;
 		ref.prev = null;
 
