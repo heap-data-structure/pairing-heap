@@ -86,6 +86,10 @@ export default class PairingHeap {
 
 	}
 
+	/**
+	 * ref must be internal
+	 *
+	 */
 	decreasekey ( ref , value ) {
 		if (ref === this.min) ref.value = value ;
 		else this.min = decreasekey( this.compare , this.min , ref , value ) ;
@@ -94,6 +98,9 @@ export default class PairingHeap {
 	/**
 	 * increase-key: remove the item at the key to be decreased, replace
 	 * the key with a smaller key, then merge the result back into the heap.
+	 *
+	 * ref must be internal
+	 *
 	 */
 	increasekey ( ref , value ) {
 
@@ -106,13 +113,17 @@ export default class PairingHeap {
 	}
 
 	/**
+	 * ref must be internal
 	 * ref.prev and ref.next get reset to null
 	 * ref.lastchild = ref.children
 	 * ref.children.next = null
 	 */
 	delete ( ref ) {
 
-		if ( ref === this.min ) return this.pop() ;
+		if ( ref === this.min ) {
+			this.pop() ;
+			return ;
+		}
 
 		const successor = mergepairs(this.compare, ref.children);
 		ref.lastchild = ref.children;
