@@ -40,8 +40,6 @@ export default class PairingHeap {
 		if (this.min === null ) return null;
 		const min = this.min;
 		this.min = mergepairs(this.compare, min.children);
-		min.prev = null;
-		min.next = null;
 		return min;
 	}
 
