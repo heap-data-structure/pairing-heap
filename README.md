@@ -1,8 +1,15 @@
-[aureooms/js-pairing-heap](https://aureooms.github.io/js-pairing-heap)
+[@aureooms/js-pairing-heap](https://aureooms.github.io/js-pairing-heap)
 ==
 
-Pairing heap data structure library for JavaScript. See [documentation](https://aureooms.github.io/js-pairing-heap/index.html).
-Parent is [aureooms/js-heap](https://github.com/aureooms/js-heap).
+<img src="https://cdn.rawgit.com/aureooms/js-pairing-heap/master/media/sketch.svg" width="864">
+
+Pairing heap data structure library for JavaScript.
+See [docs](https://aureooms.github.io/js-pairing-heap/index.html).
+Parent is [@aureooms/js-heap](https://github.com/aureooms/js-heap).
+
+```js
+let heap = new PairingHeap( compare.increasing ) ;
+```
 
 [![NPM license](http://img.shields.io/npm/l/aureooms-js-pairing-heap.svg?style=flat)](https://raw.githubusercontent.com/aureooms/js-pairing-heap/master/LICENSE)
 [![NPM version](http://img.shields.io/npm/v/aureooms-js-pairing-heap.svg?style=flat)](https://www.npmjs.org/package/aureooms-js-pairing-heap)
