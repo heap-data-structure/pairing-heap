@@ -1,5 +1,5 @@
 {
-  "name": "aureooms-js-pairing-heap",
+  "name": "@aureooms/js-pairing-heap",
   "description": "Pairing heap data structure library for JavaScript",
   "version": "0.1.0",
   "author": "aureooms",
@@ -24,7 +24,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "aureooms-js-heap-spec": "^10.0.1",
+    "@aureooms/js-heap-spec": "^10.0.1",
     "ava": "^0.18.0",
     "babel-cli": "^6.18.0",
     "babel-polyfill": "^6.20.0",
