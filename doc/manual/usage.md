@@ -8,7 +8,7 @@ import 'babel-polyfill' ;
 
 Then
 ```js
-const pairingheap = require( 'aureooms-js-pairing-heap' ) ;
+const pairingheap = require( '@aureooms/js-pairing-heap' ) ;
 // or
-import pairingheap from 'aureooms-js-pairing-heap' ;
+import pairingheap from '@aureooms/js-pairing-heap' ;
 ```
