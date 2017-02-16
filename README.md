@@ -11,7 +11,7 @@ Parent is [@aureooms/js-heap](https://github.com/aureooms/js-heap).
 let heap = new PairingHeap( compare.increasing ) ;
 ```
 
-[![NPM license](https://img.shields.io/npm/l/@aureooms/js-pairing-heap.svg?style=flat)](https://raw.githubusercontent.com/aureooms/js-pairing-heap/master/LICENSE)
+[![License](https://img.shields.io/github/license/aureooms/js-pairing-heap.svg?style=flat)](https://raw.githubusercontent.com/aureooms/js-pairing-heap/master/LICENSE)
 [![NPM version](https://img.shields.io/npm/v/@aureooms/js-pairing-heap.svg?style=flat)](https://www.npmjs.org/package/@aureooms/js-pairing-heap)
 [![Build status](https://img.shields.io/travis/aureooms/js-pairing-heap.svg?style=flat)](https://travis-ci.org/aureooms/js-pairing-heap)
 [![Coverage status](https://img.shields.io/coveralls/aureooms/js-pairing-heap.svg?style=flat)](https://coveralls.io/r/aureooms/js-pairing-heap)
