@@ -25,7 +25,7 @@
   "dependencies": {},
   "devDependencies": {
     "@aureooms/js-heap-spec": "^10.0.1",
-    "ava": "^0.19.1",
+    "ava": "^0.20.0",
     "babel-cli": "^6.18.0",
     "babel-polyfill": "^6.20.0",
     "babel-preset-latest": "^6.16.0",
