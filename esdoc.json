@@ -17,5 +17,10 @@
     "example": ["./doc/manual/example.md"]
   },
   "styles": ["./doc/css/style.css"],
-  "scripts": ["./doc/scripts/header.js"]
+  "scripts": ["./doc/scripts/header.js"],
+  "plugins": [
+    {"name": "esdoc-standard-plugin"},
+    {"name": "esdoc-inject-style-plugin"},
+    {"name": "esdoc-inject-script-plugin"}
+  ]
 }
