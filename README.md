@@ -21,3 +21,7 @@ let heap = new PairingHeap( compare.increasing ) ;
 [![NPM downloads per month](https://img.shields.io/npm/dm/@aureooms/js-pairing-heap.svg?style=flat)](https://www.npmjs.org/package/@aureooms/js-pairing-heap)
 [![GitHub issues](https://img.shields.io/github/issues/aureooms/js-pairing-heap.svg?style=flat)](https://github.com/aureooms/js-pairing-heap/issues)
 [![Documentation](https://aureooms.github.io/js-pairing-heap/badge.svg)](https://aureooms.github.io/js-pairing-heap/source.html)
+
+## References
+
+  - [Improved bounds for multipass pairing heaps and path-balanced binary search trees](https://arxiv.org/abs/1806.08692)
