@@ -35,7 +35,7 @@
     "esdoc-inject-script-plugin": "1.0.0",
     "esdoc-inject-style-plugin": "1.0.0",
     "esdoc-standard-plugin": "1.0.0",
-    "nyc": "11.9.0"
+    "nyc": "14.1.1"
   },
   "homepage": "https://aureooms.github.io/js-pairing-heap",
   "keywords": [
