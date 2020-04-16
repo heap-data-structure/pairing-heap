@@ -42,6 +42,9 @@
     "esdoc-standard-plugin": "1.0.0",
     "nyc": "15.0.1"
   },
+  "files": [
+    "lib"
+  ],
   "homepage": "https://aureooms.github.io/js-pairing-heap",
   "keywords": [
     "data",
