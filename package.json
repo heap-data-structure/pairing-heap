@@ -4,14 +4,17 @@
   "version": "0.1.1",
   "author": "aureooms",
   "ava": {
+    "files": [
+      "test/src/**/*"
+    ],
     "require": [
-      "babel-polyfill",
-      "babel-register"
+      "@babel/polyfill",
+      "@babel/register"
     ]
   },
   "babel": {
     "presets": [
-      "env"
+      "@babel/preset-env"
     ],
     "env": {
       "development": {
@@ -25,17 +28,19 @@
   "dependencies": {},
   "devDependencies": {
     "@aureooms/js-heap-spec": "10.0.1",
-    "ava": "0.25.0",
-    "babel-cli": "6.26.0",
-    "babel-polyfill": "6.26.0",
-    "babel-preset-env": "1.7.0",
+    "@babel/cli": "7.8.4",
+    "@babel/core": "7.9.0",
+    "@babel/polyfill": "7.8.7",
+    "@babel/preset-env": "7.9.5",
+    "@babel/register": "7.9.0",
+    "ava": "3.7.0",
     "codeclimate-test-reporter": "0.5.1",
-    "coveralls": "3.0.9",
+    "coveralls": "3.0.11",
     "esdoc": "1.1.0",
     "esdoc-inject-script-plugin": "1.0.0",
     "esdoc-inject-style-plugin": "1.0.0",
     "esdoc-standard-plugin": "1.0.0",
-    "nyc": "11.9.0"
+    "nyc": "15.0.1"
   },
   "homepage": "https://aureooms.github.io/js-pairing-heap",
   "keywords": [
@@ -55,6 +60,6 @@
     "cover": "nyc --reporter=lcov npm test",
     "esdoc": "esdoc",
     "prepublish": "npm run build",
-    "test": "ava ./test/src"
+    "test": "ava"
   }
 }
