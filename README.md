@@ -21,8 +21,8 @@ let heap = new PairingHeap( compare.increasing ) ;
 
 [![Code issues](https://img.shields.io/codeclimate/issues/aureooms/js-pairing-heap.svg)](https://codeclimate.com/github/aureooms/js-pairing-heap/issues)
 [![Code maintainability](https://img.shields.io/codeclimate/maintainability/github/aureooms/js-pairing-heap.svg)](https://codeclimate.com/github/aureooms/js-pairing-heap/trends/churn)
-[![Code coverage (codecov)](https://img.shields.io/codecov/c/github/aureooms/js-pairing-heap.svg)](https://codecov.io/gh/aureooms/js-pairing-heap)
-[![Code coverage (coveralls)](https://img.shields.io/coveralls/aureooms/js-pairing-heap.svg)](https://coveralls.io/r/aureooms/js-pairing-heap)
+[![Code coverage (codecov)](https://img.shields.io/codecov/c/gh/aureooms/js-pairing-heap/master.svg)](https://codecov.io/gh/aureooms/js-pairing-heap)
+[![Code coverage (coveralls)](https://img.shields.io/coveralls/github/aureooms/js-pairing-heap/master.svg)](https://coveralls.io/r/aureooms/js-pairing-heap)
 [![Code coverage (codeclimate)](https://img.shields.io/codeclimate/coverage-letter/aureooms/js-pairing-heap.svg)](https://codeclimate.com/github/aureooms/js-pairing-heap/trends/test_coverage_new_code)
 [![Code technical debt](https://img.shields.io/codeclimate/tech-debt/aureooms/js-pairing-heap.svg)](https://codeclimate.com/github/aureooms/js-pairing-heap/trends/technical_debt)
 [![Documentation](https://aureooms.github.io/js-pairing-heap/badge.svg)](https://aureooms.github.io/js-pairing-heap/source.html)
