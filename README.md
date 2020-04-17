@@ -11,16 +11,22 @@ Parent is [@aureooms/js-heap](https://github.com/aureooms/js-heap).
 let heap = new PairingHeap( compare.increasing ) ;
 ```
 
-[![License](https://img.shields.io/github/license/aureooms/js-pairing-heap.svg?style=flat)](https://raw.githubusercontent.com/aureooms/js-pairing-heap/master/LICENSE)
-[![NPM version](https://img.shields.io/npm/v/@aureooms/js-pairing-heap.svg?style=flat)](https://www.npmjs.org/package/@aureooms/js-pairing-heap)
-[![Build status](https://img.shields.io/travis/aureooms/js-pairing-heap.svg?style=flat)](https://travis-ci.org/aureooms/js-pairing-heap)
-[![Coverage status](https://img.shields.io/coveralls/aureooms/js-pairing-heap.svg?style=flat)](https://coveralls.io/r/aureooms/js-pairing-heap)
-[![Dependencies status](https://img.shields.io/david/aureooms/js-pairing-heap.svg?style=flat)](https://david-dm.org/aureooms/js-pairing-heap#info=dependencies)
-[![Dev dependencies status](https://img.shields.io/david/dev/aureooms/js-pairing-heap.svg?style=flat)](https://david-dm.org/aureooms/js-pairing-heap#info=devDependencies)
-[![Code Climate](https://img.shields.io/codeclimate/github/aureooms/js-pairing-heap.svg?style=flat)](https://codeclimate.com/github/aureooms/js-pairing-heap)
-[![NPM downloads per month](https://img.shields.io/npm/dm/@aureooms/js-pairing-heap.svg?style=flat)](https://www.npmjs.org/package/@aureooms/js-pairing-heap)
-[![GitHub issues](https://img.shields.io/github/issues/aureooms/js-pairing-heap.svg?style=flat)](https://github.com/aureooms/js-pairing-heap/issues)
+[![License](https://img.shields.io/github/license/aureooms/js-pairing-heap.svg)](https://raw.githubusercontent.com/aureooms/js-pairing-heap/master/LICENSE)
+[![Version](https://img.shields.io/npm/v/@aureooms/js-pairing-heap.svg)](https://www.npmjs.org/package/@aureooms/js-pairing-heap)
+[![Build](https://img.shields.io/travis/aureooms/js-pairing-heap/master.svg)](https://travis-ci.org/aureooms/js-pairing-heap/branches)
+[![Dependencies](https://img.shields.io/david/aureooms/js-pairing-heap.svg)](https://david-dm.org/aureooms/js-pairing-heap)
+[![Dev dependencies](https://img.shields.io/david/dev/aureooms/js-pairing-heap.svg)](https://david-dm.org/aureooms/js-pairing-heap?type=dev)
+[![GitHub issues](https://img.shields.io/github/issues/aureooms/js-pairing-heap.svg)](https://github.com/aureooms/js-pairing-heap/issues)
+[![Downloads](https://img.shields.io/npm/dm/@aureooms/js-pairing-heap.svg)](https://www.npmjs.org/package/@aureooms/js-pairing-heap)
+
+[![Code issues](https://img.shields.io/codeclimate/issues/aureooms/js-pairing-heap.svg)](https://codeclimate.com/github/aureooms/js-pairing-heap/issues)
+[![Code maintainability](https://img.shields.io/codeclimate/maintainability/github/aureooms/js-pairing-heap.svg)](https://codeclimate.com/github/aureooms/js-pairing-heap/trends/churn)
+[![Code coverage (cov)](https://img.shields.io/codecov/c/github/aureooms/js-pairing-heap.svg)](https://codecov.io/gh/aureooms/js-pairing-heap)
+<!--[![Code coverage (alls)](https://img.shields.io/coveralls/aureooms/js-pairing-heap.svg)](https://coveralls.io/r/aureooms/js-pairing-heap)-->
+[![Code coverage (clim)](https://img.shields.io/codeclimate/coverage-letter/aureooms/js-pairing-heap.svg)](https://codeclimate.com/github/aureooms/js-pairing-heap/trends/test_coverage_new_code)
+[![Code technical debt](https://img.shields.io/codeclimate/tech-debt/aureooms/js-pairing-heap.svg)](https://codeclimate.com/github/aureooms/js-pairing-heap/trends/technical_debt)
 [![Documentation](https://aureooms.github.io/js-pairing-heap/badge.svg)](https://aureooms.github.io/js-pairing-heap/source.html)
+
 
 ## References
 
