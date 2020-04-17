@@ -20,7 +20,7 @@ let heap = new PairingHeap( compare.increasing ) ;
 [![Downloads](https://img.shields.io/npm/dm/@aureooms/js-pairing-heap.svg)](https://www.npmjs.org/package/@aureooms/js-pairing-heap)
 
 [![Code issues](https://img.shields.io/codeclimate/issues/aureooms/js-pairing-heap.svg)](https://codeclimate.com/github/aureooms/js-pairing-heap/issues)
-[![Code maintainability](https://img.shields.io/codeclimate/maintainability/github/aureooms/js-pairing-heap.svg)](https://codeclimate.com/github/aureooms/js-pairing-heap/trends/churn)
+[![Code maintainability](https://img.shields.io/codeclimate/maintainability/aureooms/js-pairing-heap.svg)](https://codeclimate.com/github/aureooms/js-pairing-heap/trends/churn)
 [![Code coverage (alls)](https://img.shields.io/coveralls/github/aureooms/js-pairing-heap/master.svg)](https://coveralls.io/r/aureooms/js-pairing-heap)
 [![Code technical debt](https://img.shields.io/codeclimate/tech-debt/aureooms/js-pairing-heap.svg)](https://codeclimate.com/github/aureooms/js-pairing-heap/trends/technical_debt)
 [![Documentation](https://aureooms.github.io/js-pairing-heap/badge.svg)](https://aureooms.github.io/js-pairing-heap/source.html)
