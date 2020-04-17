@@ -569,7 +569,7 @@
     "name": "src/Node.js",
     "content": "\nexport default class Node {\n\n\tconstructor ( value ) {\n\t\tthis.value = value; // key\n\t\tthis.prev = null;   // pointer to previous sibling\n\t\tthis.next = null;   // pointer to next sibling\n\t\tthis.children = new Beginning(); // pointer to children list\n\t\t                                // first child is this.children.next\n\t}\n\n}\n\n/**\n * Avoids if-then-else logic when manipulating child nodes\n */\nexport class Beginning {\n\tconstructor () {\n\t\tthis.next = null;\n\t}\n}\n\n//export class End {\n\t//constructor (prev) {\n\t\t//this.prev = prev;\n\t//}\n//}\n",
     "static": true,
-    "longname": "/home/aureooms/dev/js/data-structures/heap/js-pairing-heap/src/Node.js",
+    "longname": "/home/aureooms/dev/js/js-pairing-heap/src/Node.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -722,9 +722,9 @@
     "__docId__": 58,
     "kind": "file",
     "name": "src/PairingHeap.js",
-    "content": "import merge from './merge' ;\nimport mergepairs from './mergepairs' ;\nimport decreasekey from './decreasekey' ;\nimport Node from './Node' ;\n\nexport default class PairingHeap {\n\n\tconstructor (compare) {\n\t\tthis.compare = compare ; // comparison function\n\t\tthis.min = null ;        // root node, must have .prev = .next = null at all times\n\t}\n\n\t/**\n\t * find-min: simply return the top element of the heap.\n\t */\n\thead () {\n\t\tif ( this.min === null ) return undefined;\n\t\treturn this.min.value;\n\t}\n\n\n\theadreference () {\n\t\treturn this.min;\n\t}\n\n\t/**\n\t * delete-min: remove the root and merge its subtrees. Various strategies\n\t * are employed.\n\t */\n\tpop () {\n\t\tconst min = this.popreference();\n\t\treturn min === null ? undefined : min.value ;\n\t}\n\n\t/**\n\t */\n\tpopreference () {\n\t\tif (this.min === null ) return null;\n\t\tconst min = this.min;\n\t\tthis.min = mergepairs(this.compare, min.children); // min.children.next = null\n\t\treturn min;\n\t}\n\n\t/**\n\t * insert: create a new heap for the inserted element and merge into the\n\t * original heap.\n\t */\n\tpush ( value ) {\n\t\tconst node = new Node(value) ;\n\t\treturn this.pushreference(node);\n\t}\n\n\t/**\n\t * /!\\ ref.next = ref.prev = null which means all references that are\n\t * external to the tree must reset .next and .prev and one must not call\n\t * PairingHeap#pushreference with an internal reference from this tree or\n\t * another, except the root of another tree.\n\t */\n\tpushreference ( ref ) {\n\t\tif (this.min === null) this.min = ref;\n\t\telse {\n\t\t\t// this.min != null != ref\n\t\t\tthis.min = merge( this.compare , this.min , ref ) ;\n\t\t}\n\t\treturn ref;\n\t}\n\n\n\t/**\n\t * Supposes the same comparison function is used in both trees.\n\t * We can call pushreference since other.min.next = other.min.prev = null.\n\t */\n\tmerge ( other ) {\n\t\tthis.pushreference( other.min ) ;\n\t}\n\n\n\t/**\n\t * @param {Node} ref Non-null internal node object.\n\t * @param {Object} value The new value for ref.\n\t */\n\tupdate ( ref , value ) {\n\n\t\tconst d = this.compare(value, ref.value) ;\n\n\t\tif      ( d < 0 ) this.decreasekey(ref, value) ;\n\t\telse if ( d > 0 ) this.increasekey(ref, value) ;\n\t\telse              ref.value = value ;\n\n\t}\n\n\t/**\n\t * @param {Node} ref Non-null internal node object.\n\t * @param {Object} value The new value for ref.\n\t */\n\tdecreasekey ( ref , value ) {\n\t\tif (ref === this.min) ref.value = value ;\n\t\telse {\n\t\t\t// this.min != null, ref != null\n\t\t\tthis.min = decreasekey( this.compare , this.min , ref , value ) ;\n\t\t}\n\t}\n\n\t/**\n\t * increase-key: remove the item at the key to be decreased, replace\n\t * the key with a smaller key, then merge the result back into the heap.\n\t *\n\t * @param {Node} ref Non-null internal node object.\n\t * @param {Object} value The new value for ref.\n\t *\n\t */\n\tincreasekey ( ref , value ) {\n\n\t\tthis.delete(ref);\n\n\t\tref.value = value;\n\n\t\tthis.pushreference( ref ) ;\n\n\t}\n\n\t/**\n\t * ref must be internal\n\t * ref.prev and ref.next get reset to null\n\t */\n\tdelete ( ref ) {\n\n\t\tif ( ref === this.min ) {\n\t\t\tthis.popreference() ;\n\t\t\treturn ;\n\t\t}\n\n\t\tconst successor = mergepairs(this.compare, ref.children); // ref.children.next = null\n\n\t\t// ref has no children\n\t\tif (successor === null) {\n\n\t\t\t//  _       _       _\n\t\t\t// | | --> | | --> | |\n\t\t\t// |_| <-- |_| <-- |_|\n\t\t\t//  P       R       N\n\n\t\t\t// detach ref and link ref.prev to ref.next\n\t\t\t//\n\t\t\t//  _               _\n\t\t\t// | | ----------> | |\n\t\t\t// |_| <    _   -> |_|\n\t\t\t//  P   \\  | | /  / N\n\t\t\t//       - |_| <-/\n\t\t\t//          R\n\t\t\t//\n\t\t\tref.prev.next = ref.next ; // must be != null because ref != min\n\n\t\t\tif (ref.next !== null) {\n\t\t\t\t//\n\t\t\t\t//  _               _\n\t\t\t\t// | | ----------> | |\n\t\t\t\t// |_| <---------- |_|\n\t\t\t\t//  P       _       N\n\t\t\t\t//  ^      | | -----^\n\t\t\t\t//  |----- |_|\n\t\t\t\t//          R\n\t\t\t\t//\n\t\t\t\tref.next.prev = ref.prev ;\n\t\t\t\t//\n\t\t\t\t//  _               _\n\t\t\t\t// | | ----------> | |\n\t\t\t\t// |_| <---------- |_|\n\t\t\t\t//  P       _       N\n\t\t\t\t//  ^      | |\n\t\t\t\t//  |----- |_|\n\t\t\t\t//          R\n\t\t\t\t//\n\t\t\t\tref.next = null;\n\t\t\t}\n\n\t\t\t//\n\t\t\t//  _               _\n\t\t\t// | | ----------> | |\n\t\t\t// |_| <---------- |_|\n\t\t\t//  P       _       N\n\t\t\t//         | |\n\t\t\t//         |_|\n\t\t\t//          R\n\t\t\t//\n\t\t\tref.prev = null;\n\n\t\t\treturn;\n\n\t\t}\n\n\t\tsuccessor.prev = ref.prev ; // must be != null because ref != min\n\t\tsuccessor.prev.next = successor ;\n\t\tref.prev = null;\n\n\t\tif (ref.next !== null) {\n\t\t\tsuccessor.next = ref.next ; // might be null\n\t\t\tsuccessor.next.prev = successor ;\n\t\t\tref.next = null;\n\t\t}\n\n\t}\n\n\n}\n",
+    "content": "import merge from './merge' ;\nimport mergepairs from './mergepairs' ;\nimport decreasekey from './decreasekey' ;\nimport Node from './Node' ;\n\nexport default class PairingHeap {\n\n\tconstructor (compare) {\n\t\tthis.compare = compare ; // comparison function\n\t\tthis.min = null ;        // root node, must have .prev = .next = null at all times\n\t}\n\n\t/**\n\t * find-min: simply return the top element of the heap.\n\t */\n\thead () {\n\t\tif ( this.min === null ) return undefined;\n\t\treturn this.min.value;\n\t}\n\n\n\theadreference () {\n\t\treturn this.min;\n\t}\n\n\t/**\n\t * delete-min: remove the root and merge its subtrees. Various strategies\n\t * are employed.\n\t */\n\tpop () {\n\t\tconst min = this.popreference();\n\t\treturn min === null ? undefined : min.value ;\n\t}\n\n\t/**\n\t */\n\tpopreference () {\n\t\tif (this.min === null ) return null;\n\t\tconst min = this.min;\n\t\tthis.min = mergepairs(this.compare, min.children); // min.children.next = null\n\t\treturn min;\n\t}\n\n\t/**\n\t * insert: create a new heap for the inserted element and merge into the\n\t * original heap.\n\t */\n\tpush ( value ) {\n\t\tconst node = new Node(value) ;\n\t\treturn this.pushreference(node);\n\t}\n\n\t/**\n\t * /!\\ ref.next = ref.prev = null which means all references that are\n\t * external to the tree must reset .next and .prev and one must not call\n\t * PairingHeap#pushreference with an internal reference from this tree or\n\t * another, except the root of another tree.\n\t */\n\tpushreference ( ref ) {\n\t\tif (this.min === null) this.min = ref;\n\t\telse {\n\t\t\t// this.min != null != ref\n\t\t\tthis.min = merge( this.compare , this.min , ref ) ;\n\t\t}\n\t\treturn ref;\n\t}\n\n\n\t/**\n\t * Supposes the same comparison function is used in both trees.\n\t * We can call pushreference since other.min.next = other.min.prev = null.\n\t */\n\tmerge ( other ) {\n\t\tconst ref = other.min ;\n\t\tif (ref !== null) this.pushreference( ref ) ;\n\t}\n\n\n\t/**\n\t * @param {Node} ref Non-null internal node object.\n\t * @param {Object} value The new value for ref.\n\t */\n\tupdate ( ref , value ) {\n\n\t\tconst d = this.compare(value, ref.value) ;\n\n\t\tif      ( d < 0 ) this.decreasekey(ref, value) ;\n\t\telse if ( d > 0 ) this.increasekey(ref, value) ;\n\t\telse              ref.value = value ;\n\n\t}\n\n\t/**\n\t * @param {Node} ref Non-null internal node object.\n\t * @param {Object} value The new value for ref.\n\t */\n\tdecreasekey ( ref , value ) {\n\t\tif (ref === this.min) ref.value = value ;\n\t\telse {\n\t\t\t// this.min != null, ref != null\n\t\t\tthis.min = decreasekey( this.compare , this.min , ref , value ) ;\n\t\t}\n\t}\n\n\t/**\n\t * increase-key: remove the item at the key to be decreased, replace\n\t * the key with a smaller key, then merge the result back into the heap.\n\t *\n\t * @param {Node} ref Non-null internal node object.\n\t * @param {Object} value The new value for ref.\n\t *\n\t */\n\tincreasekey ( ref , value ) {\n\n\t\tthis.delete(ref);\n\n\t\tref.value = value;\n\n\t\tthis.pushreference( ref ) ;\n\n\t}\n\n\t/**\n\t * ref must be internal\n\t * ref.prev and ref.next get reset to null\n\t */\n\tdelete ( ref ) {\n\n\t\tif ( ref === this.min ) {\n\t\t\tthis.popreference() ;\n\t\t\treturn ;\n\t\t}\n\n\t\tconst successor = mergepairs(this.compare, ref.children); // ref.children.next = null\n\n\t\t// ref has no children\n\t\tif (successor === null) {\n\n\t\t\t//  _       _       _\n\t\t\t// | | --> | | --> | |\n\t\t\t// |_| <-- |_| <-- |_|\n\t\t\t//  P       R       N\n\n\t\t\t// detach ref and link ref.prev to ref.next\n\t\t\t//\n\t\t\t//  _               _\n\t\t\t// | | ----------> | |\n\t\t\t// |_| <    _   -> |_|\n\t\t\t//  P   \\  | | /  / N\n\t\t\t//       - |_| <-/\n\t\t\t//          R\n\t\t\t//\n\t\t\tref.prev.next = ref.next ; // must be != null because ref != min\n\n\t\t\tif (ref.next !== null) {\n\t\t\t\t//\n\t\t\t\t//  _               _\n\t\t\t\t// | | ----------> | |\n\t\t\t\t// |_| <---------- |_|\n\t\t\t\t//  P       _       N\n\t\t\t\t//  ^      | | -----^\n\t\t\t\t//  |----- |_|\n\t\t\t\t//          R\n\t\t\t\t//\n\t\t\t\tref.next.prev = ref.prev ;\n\t\t\t\t//\n\t\t\t\t//  _               _\n\t\t\t\t// | | ----------> | |\n\t\t\t\t// |_| <---------- |_|\n\t\t\t\t//  P       _       N\n\t\t\t\t//  ^      | |\n\t\t\t\t//  |----- |_|\n\t\t\t\t//          R\n\t\t\t\t//\n\t\t\t\tref.next = null;\n\t\t\t}\n\n\t\t\t//\n\t\t\t//  _               _\n\t\t\t// | | ----------> | |\n\t\t\t// |_| <---------- |_|\n\t\t\t//  P       _       N\n\t\t\t//         | |\n\t\t\t//         |_|\n\t\t\t//          R\n\t\t\t//\n\t\t\tref.prev = null;\n\n\t\t\treturn;\n\n\t\t}\n\n\t\tsuccessor.prev = ref.prev ; // must be != null because ref != min\n\t\tsuccessor.prev.next = successor ;\n\t\tref.prev = null;\n\n\t\tif (ref.next !== null) {\n\t\t\tsuccessor.next = ref.next ; // might be null\n\t\t\tsuccessor.next.prev = successor ;\n\t\t\tref.next = null;\n\t\t}\n\n\t}\n\n\n}\n",
     "static": true,
-    "longname": "/home/aureooms/dev/js/data-structures/heap/js-pairing-heap/src/PairingHeap.js",
+    "longname": "/home/aureooms/dev/js/js-pairing-heap/src/PairingHeap.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -955,7 +955,7 @@
     "longname": "src/PairingHeap.js~PairingHeap#update",
     "access": "public",
     "description": "",
-    "lineNumber": 82,
+    "lineNumber": 83,
     "params": [
       {
         "nullable": null,
@@ -991,7 +991,7 @@
     "longname": "src/PairingHeap.js~PairingHeap#decreasekey",
     "access": "public",
     "description": "",
-    "lineNumber": 96,
+    "lineNumber": 97,
     "params": [
       {
         "nullable": null,
@@ -1027,7 +1027,7 @@
     "longname": "src/PairingHeap.js~PairingHeap#increasekey",
     "access": "public",
     "description": "increase-key: remove the item at the key to be decreased, replace\nthe key with a smaller key, then merge the result back into the heap.",
-    "lineNumber": 112,
+    "lineNumber": 113,
     "params": [
       {
         "nullable": null,
@@ -1063,7 +1063,7 @@
     "longname": "src/PairingHeap.js~PairingHeap#delete",
     "access": "public",
     "description": "ref must be internal\nref.prev and ref.next get reset to null",
-    "lineNumber": 126,
+    "lineNumber": 127,
     "params": [
       {
         "name": "ref",
@@ -1080,7 +1080,7 @@
     "name": "src/decreasekey.js",
     "content": "import merge from './merge' ;\n\n/**\n * decrease-key: remove the subtree rooted at the key to be decreased, replace\n * the key with a smaller key, then merge the result back into the heap.\n *\n * @param {Function} compare Comparison function for keys.\n * @param {Node} min Current minimum-key node != null with .prev = .next = null.\n * @param {Node} node Node != null to update with .prev != null.\n * @param {Object} value The new value for the key of the node to update.\n * @returns {Node} Returns the node containing the minimum key.\n */\nexport default function decreasekey ( compare , min , node , value ) {\n\n\t// update node's key\n\tnode.value = value ;\n\n\t// remove node from tree\n\tnode.prev.next = node.next ; // by assumption node.prev != null\n\tif (node.next !== null) {\n\t\tnode.next.prev = node.prev ;\n\t\tnode.next = null ;\n\t}\n\tnode.prev = null ;\n\n\t// merge, remember we move the whole subtree with children\n\t// node.prev = node.next = null at this point so safe to call merge\n\t// min != null and node != null\n\treturn merge(compare, min, node);\n\n}\n",
     "static": true,
-    "longname": "/home/aureooms/dev/js/data-structures/heap/js-pairing-heap/src/decreasekey.js",
+    "longname": "/home/aureooms/dev/js/js-pairing-heap/src/decreasekey.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -1163,7 +1163,7 @@
     "name": "src/index.js",
     "content": "import Node from './Node' ;\nimport PairingHeap from './PairingHeap' ;\nimport prepend from './prepend' ;\nimport decreasekey from './decreasekey' ;\nimport merge from './merge' ;\nimport mergepairs from './mergepairs' ;\n\nexport default PairingHeap ;\n\nexport {\n\tNode ,\n\tPairingHeap ,\n\tprepend ,\n\tdecreasekey ,\n\tmerge ,\n\tmergepairs ,\n} ;\n",
     "static": true,
-    "longname": "/home/aureooms/dev/js/data-structures/heap/js-pairing-heap/src/index.js",
+    "longname": "/home/aureooms/dev/js/js-pairing-heap/src/index.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -1174,7 +1174,7 @@
     "name": "src/merge.js",
     "content": "import prepend from './prepend' ;\n\n/**\n * merge: compare the two root elements, the smaller remains the root of the\n * result, the larger element and its subtree is appended as a child of this\n * root.\n *\n * /!\\ Precondition:\n *   1. A != null and A.next = A.prev = null\n *   2. B != null and B.next = B.prev = null\n *\n * @param {Function} compare Comparison functions for keys.\n * @param {Node} A The first input node.\n * @param {Node} B The second input node.\n * @returns {Node} The input node with smallest key with .next = .prev = null.\n */\nexport default function merge ( compare, A, B ) {\n\n\tif ( compare( A.value , B.value ) < 0 ) return prepend( A , B ) ;\n\n\telse                                    return prepend( B , A ) ;\n\n}\n",
     "static": true,
-    "longname": "/home/aureooms/dev/js/data-structures/heap/js-pairing-heap/src/merge.js",
+    "longname": "/home/aureooms/dev/js/js-pairing-heap/src/merge.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -1247,7 +1247,7 @@
     "name": "src/mergepairs.js",
     "content": "import merge from './merge' ;\n\n/**\n * Recursively builds a heap from an iterator of nodes by merging them pair by\n * pair.\n *\n * @param {Function} compare Comparison function for node keys.\n * @param {Node} prev Last node before first of list. First node is `prev.next`.\n * @returns {Node} The root node with .next = .prev = null or null for an empty\n *                 iterator.\n */\nexport default function mergepairs ( compare, prev ) {\n\n\t// unpick linked list starting at prev.next\n\n\tconst A = prev.next ;\n\tprev.next = null;\n\n\tif ( A === null ) return null ;\n\tA.prev = null;\n\n\tconst B = A.next ;\n\tA.next = null;\n\n\tif ( B === null ) return A ;\n\tB.prev = null;\n\n\t// recursion fairy for the rest of the heap\n\tconst tail = mergepairs( compare , B ) ; // sets B.next = null\n\n\t// merge A != null with B != null\n\tconst head = merge( compare , A , B ) ; // call to merge is valid\n\n\t// merge with the rest\n\tif (tail === null) return head;\n\n\t// head != null, tail != null\n\treturn merge( compare , head , tail ) ; // also valid because tail and head\n\t                                        // are outputs of merge{pairs}\n\n}\n",
     "static": true,
-    "longname": "/home/aureooms/dev/js/data-structures/heap/js-pairing-heap/src/mergepairs.js",
+    "longname": "/home/aureooms/dev/js/js-pairing-heap/src/mergepairs.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -1310,7 +1310,7 @@
     "name": "src/prepend.js",
     "content": "\n/**\n * Set B as the first child of A.\n *\n * /!\\ Precondition:\n *   1. A != null\n *   2. B != null\n *   3. A.next = A.prev = B.next = B.prev = null\n *\n * @param {Node} A\n * @param {Node} B\n * @return {Node} The input node A with .next = .prev = null.\n */\nexport default function prepend ( A , B ) {\n\n\tB.prev = A.children ;\n\tB.next = A.children.next ;\n\tA.children.next = B ;\n\n\tif (B.next !== null) B.next.prev = B ;\n\n\treturn A ;\n\n}\n",
     "static": true,
-    "longname": "/home/aureooms/dev/js/data-structures/heap/js-pairing-heap/src/prepend.js",
+    "longname": "/home/aureooms/dev/js/js-pairing-heap/src/prepend.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -1363,16 +1363,16 @@
   },
   {
     "kind": "index",
-    "content": "[@aureooms/js-pairing-heap](https://aureooms.github.io/js-pairing-heap)\n==\n\n<img src=\"https://cdn.rawgit.com/aureooms/js-pairing-heap/master/media/sketch.svg\" width=\"864\">\n\nPairing heap data structure library for JavaScript.\nSee [docs](https://aureooms.github.io/js-pairing-heap/index.html).\nParent is [@aureooms/js-heap](https://github.com/aureooms/js-heap).\n\n```js\nlet heap = new PairingHeap( compare.increasing ) ;\n```\n\n[![License](https://img.shields.io/github/license/aureooms/js-pairing-heap.svg?style=flat)](https://raw.githubusercontent.com/aureooms/js-pairing-heap/master/LICENSE)\n[![NPM version](https://img.shields.io/npm/v/@aureooms/js-pairing-heap.svg?style=flat)](https://www.npmjs.org/package/@aureooms/js-pairing-heap)\n[![Build status](https://img.shields.io/travis/aureooms/js-pairing-heap.svg?style=flat)](https://travis-ci.org/aureooms/js-pairing-heap)\n[![Coverage status](https://img.shields.io/coveralls/aureooms/js-pairing-heap.svg?style=flat)](https://coveralls.io/r/aureooms/js-pairing-heap)\n[![Dependencies status](https://img.shields.io/david/aureooms/js-pairing-heap.svg?style=flat)](https://david-dm.org/aureooms/js-pairing-heap#info=dependencies)\n[![Dev dependencies status](https://img.shields.io/david/dev/aureooms/js-pairing-heap.svg?style=flat)](https://david-dm.org/aureooms/js-pairing-heap#info=devDependencies)\n[![Code Climate](https://img.shields.io/codeclimate/github/aureooms/js-pairing-heap.svg?style=flat)](https://codeclimate.com/github/aureooms/js-pairing-heap)\n[![NPM downloads per month](https://img.shields.io/npm/dm/@aureooms/js-pairing-heap.svg?style=flat)](https://www.npmjs.org/package/@aureooms/js-pairing-heap)\n[![GitHub issues](https://img.shields.io/github/issues/aureooms/js-pairing-heap.svg?style=flat)](https://github.com/aureooms/js-pairing-heap/issues)\n[![Documentation](https://aureooms.github.io/js-pairing-heap/badge.svg)](https://aureooms.github.io/js-pairing-heap/source.html)\n",
-    "longname": "/home/aureooms/dev/js/data-structures/heap/js-pairing-heap/README.md",
+    "content": "[@aureooms/js-pairing-heap](https://aureooms.github.io/js-pairing-heap)\n==\n\n<img src=\"https://cdn.rawgit.com/aureooms/js-pairing-heap/master/media/sketch.svg\" width=\"864\">\n\nPairing heap data structure library for JavaScript.\nSee [docs](https://aureooms.github.io/js-pairing-heap/index.html).\nParent is [@aureooms/js-heap](https://github.com/aureooms/js-heap).\n\n```js\nlet heap = new PairingHeap( compare.increasing ) ;\n```\n\n[![License](https://img.shields.io/github/license/aureooms/js-pairing-heap.svg)](https://raw.githubusercontent.com/aureooms/js-pairing-heap/master/LICENSE)\n[![Version](https://img.shields.io/npm/v/@aureooms/js-pairing-heap.svg)](https://www.npmjs.org/package/@aureooms/js-pairing-heap)\n[![Build](https://img.shields.io/travis/aureooms/js-pairing-heap/master.svg)](https://travis-ci.org/aureooms/js-pairing-heap/branches)\n[![Dependencies](https://img.shields.io/david/aureooms/js-pairing-heap.svg)](https://david-dm.org/aureooms/js-pairing-heap)\n[![Dev dependencies](https://img.shields.io/david/dev/aureooms/js-pairing-heap.svg)](https://david-dm.org/aureooms/js-pairing-heap?type=dev)\n[![GitHub issues](https://img.shields.io/github/issues/aureooms/js-pairing-heap.svg)](https://github.com/aureooms/js-pairing-heap/issues)\n[![Downloads](https://img.shields.io/npm/dm/@aureooms/js-pairing-heap.svg)](https://www.npmjs.org/package/@aureooms/js-pairing-heap)\n\n[![Code issues](https://img.shields.io/codeclimate/issues/aureooms/js-pairing-heap.svg)](https://codeclimate.com/github/aureooms/js-pairing-heap/issues)\n[![Code maintainability](https://img.shields.io/codeclimate/maintainability/aureooms/js-pairing-heap.svg)](https://codeclimate.com/github/aureooms/js-pairing-heap/trends/churn)\n[![Code coverage (alls)](https://img.shields.io/coveralls/github/aureooms/js-pairing-heap/master.svg)](https://coveralls.io/r/aureooms/js-pairing-heap)\n[![Code technical debt](https://img.shields.io/codeclimate/tech-debt/aureooms/js-pairing-heap.svg)](https://codeclimate.com/github/aureooms/js-pairing-heap/trends/technical_debt)\n[![Documentation](https://aureooms.github.io/js-pairing-heap/badge.svg)](https://aureooms.github.io/js-pairing-heap/source.html)\n\n\n## References\n\n  - [Improved bounds for multipass pairing heaps and path-balanced binary search trees](https://arxiv.org/abs/1806.08692)\n",
+    "longname": "/home/aureooms/dev/js/js-pairing-heap/README.md",
     "name": "./README.md",
     "static": true,
     "access": "public"
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"@aureooms/js-pairing-heap\",\n  \"description\": \"Pairing heap data structure library for JavaScript\",\n  \"version\": \"0.1.1\",\n  \"author\": \"aureooms\",\n  \"ava\": {\n    \"require\": [\n      \"babel-polyfill\",\n      \"babel-register\"\n    ]\n  },\n  \"babel\": {\n    \"presets\": [\n      \"env\"\n    ],\n    \"env\": {\n      \"development\": {\n        \"sourceMaps\": \"inline\"\n      }\n    }\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/aureooms/js-pairing-heap/issues\"\n  },\n  \"dependencies\": {},\n  \"devDependencies\": {\n    \"@aureooms/js-heap-spec\": \"^10.0.1\",\n    \"ava\": \"^0.23.0\",\n    \"babel-cli\": \"^6.26.0\",\n    \"babel-polyfill\": \"^6.26.0\",\n    \"babel-preset-env\": \"^1.6.1\",\n    \"codeclimate-test-reporter\": \"^0.5.0\",\n    \"coveralls\": \"^3.0.0\",\n    \"esdoc\": \"^1.0.3\",\n    \"esdoc-inject-script-plugin\": \"^1.0.0\",\n    \"esdoc-inject-style-plugin\": \"^1.0.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"nyc\": \"^11.2.1\"\n  },\n  \"homepage\": \"https://aureooms.github.io/js-pairing-heap\",\n  \"keywords\": [\n    \"data\",\n    \"heap\",\n    \"pairing\",\n    \"structure\"\n  ],\n  \"license\": \"AGPL-3.0\",\n  \"main\": \"lib/index.js\",\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/aureooms/js-pairing-heap\"\n  },\n  \"scripts\": {\n    \"build\": \"rm -rf lib && babel src -d lib\",\n    \"cover\": \"nyc --reporter=lcov npm test\",\n    \"prepublish\": \"npm run build\",\n    \"test\": \"ava ./test/src\",\n    \"esdoc\": \"esdoc\"\n  }\n}\n",
-    "longname": "/home/aureooms/dev/js/data-structures/heap/js-pairing-heap/package.json",
+    "content": "{\n  \"name\": \"@aureooms/js-pairing-heap\",\n  \"description\": \"Pairing heap data structure library for JavaScript\",\n  \"version\": \"1.0.0\",\n  \"author\": \"aureooms\",\n  \"ava\": {\n    \"files\": [\n      \"test/src/**/*\"\n    ],\n    \"require\": [\n      \"@babel/polyfill\",\n      \"@babel/register\"\n    ],\n    \"timeout\": \"1m\"\n  },\n  \"babel\": {\n    \"presets\": [\n      \"@babel/preset-env\"\n    ],\n    \"env\": {\n      \"development\": {\n        \"sourceMaps\": \"inline\"\n      }\n    }\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/aureooms/js-pairing-heap/issues\"\n  },\n  \"dependencies\": {},\n  \"devDependencies\": {\n    \"@aureooms/js-heap-spec\": \"14.0.0\",\n    \"@babel/cli\": \"7.8.4\",\n    \"@babel/core\": \"7.9.0\",\n    \"@babel/polyfill\": \"7.8.7\",\n    \"@babel/preset-env\": \"7.9.5\",\n    \"@babel/register\": \"7.9.0\",\n    \"ava\": \"3.7.0\",\n    \"coveralls\": \"3.0.11\",\n    \"esdoc\": \"1.1.0\",\n    \"esdoc-inject-script-plugin\": \"1.0.0\",\n    \"esdoc-inject-style-plugin\": \"1.0.0\",\n    \"esdoc-standard-plugin\": \"1.0.0\",\n    \"np\": \"6.2.1\",\n    \"nyc\": \"15.0.1\"\n  },\n  \"files\": [\n    \"lib\"\n  ],\n  \"homepage\": \"https://aureooms.github.io/js-pairing-heap\",\n  \"keywords\": [\n    \"data\",\n    \"heap\",\n    \"pairing\",\n    \"structure\"\n  ],\n  \"license\": \"AGPL-3.0\",\n  \"main\": \"lib/index.js\",\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/aureooms/js-pairing-heap\"\n  },\n  \"scripts\": {\n    \"build\": \"rm -rf lib && babel src -d lib\",\n    \"cover\": \"nyc --reporter=lcov npm test\",\n    \"esdoc\": \"esdoc\",\n    \"prepare\": \"npm run build\",\n    \"release\": \"np\",\n    \"test\": \"ava\"\n  }\n}\n",
+    "longname": "/home/aureooms/dev/js/js-pairing-heap/package.json",
     "name": "package.json",
     "static": true,
     "access": "public"
@@ -1387,7 +1387,7 @@
   },
   {
     "kind": "manual",
-    "longname": "/home/aureooms/dev/js/data-structures/heap/js-pairing-heap/doc/manual/overview.md",
+    "longname": "/home/aureooms/dev/js/js-pairing-heap/doc/manual/overview.md",
     "name": "./doc/manual/overview.md",
     "content": "# Overview\n",
     "static": true,
@@ -1395,7 +1395,7 @@
   },
   {
     "kind": "manual",
-    "longname": "/home/aureooms/dev/js/data-structures/heap/js-pairing-heap/doc/manual/installation.md",
+    "longname": "/home/aureooms/dev/js/js-pairing-heap/doc/manual/installation.md",
     "name": "./doc/manual/installation.md",
     "content": "# Installation\n\nCan be managed using\n[jspm](http://jspm.io)\nor [npm](https://github.com/npm/npm).\n\n### jspm\n```terminal\njspm install npm:@aureooms/js-pairing-heap\n```\n\n### npm\n```terminal\nnpm install @aureooms/js-pairing-heap --save\n```\n",
     "static": true,
@@ -1403,7 +1403,7 @@
   },
   {
     "kind": "manual",
-    "longname": "/home/aureooms/dev/js/data-structures/heap/js-pairing-heap/doc/manual/usage.md",
+    "longname": "/home/aureooms/dev/js/js-pairing-heap/doc/manual/usage.md",
     "name": "./doc/manual/usage.md",
     "content": "# Usage\n\nThe code needs a ES2015+ polyfill to work, for example\n[babel-polyfill](https://babeljs.io/docs/usage/polyfill).\n```js\nrequire( 'babel-polyfill' ) ;\n// or\nimport 'babel-polyfill' ;\n```\n\nThen\n```js\nconst pairingheap = require( '@aureooms/js-pairing-heap' ) ;\n// or\nimport pairingheap from '@aureooms/js-pairing-heap' ;\n```\n",
     "static": true,
@@ -1411,9 +1411,9 @@
   },
   {
     "kind": "manual",
-    "longname": "/home/aureooms/dev/js/data-structures/heap/js-pairing-heap/doc/manual/example.md",
+    "longname": "/home/aureooms/dev/js/js-pairing-heap/doc/manual/example.md",
     "name": "./doc/manual/example.md",
-    "content": "# Example\n",
+    "content": "# Examples\n",
     "static": true,
     "access": "public"
   }
