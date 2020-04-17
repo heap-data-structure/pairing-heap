@@ -71,7 +71,8 @@ export default class PairingHeap {
 	 * We can call pushreference since other.min.next = other.min.prev = null.
 	 */
 	merge ( other ) {
-		this.pushreference( other.min ) ;
+		const ref = other.min ;
+		if (ref !== null) this.pushreference( ref ) ;
 	}
 
 
