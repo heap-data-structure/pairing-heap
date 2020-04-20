@@ -91,6 +91,8 @@ export default class PairingHeap {
 	}
 
 	/**
+	 * decrease-key
+	 *
 	 * @param {Node} ref Non-null internal node object.
 	 * @param {Object} value The new value for ref.
 	 */
@@ -103,8 +105,8 @@ export default class PairingHeap {
 	}
 
 	/**
-	 * increase-key: remove the item at the key to be decreased, replace
-	 * the key with a smaller key, then merge the result back into the heap.
+	 * increase-key: remove the item at the key to be increased, replace
+	 * the key with a larger key, then push the result back into the heap.
 	 *
 	 * @param {Node} ref Non-null internal node object.
 	 * @param {Object} value The new value for ref.
