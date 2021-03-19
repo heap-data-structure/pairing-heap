@@ -1,7 +1,7 @@
-import prepend from "./prepend.js" ;
+import prepend from './prepend.js';
 
 /**
- * merge: compare the two root elements, the smaller remains the root of the
+ * Merge: compare the two root elements, the smaller remains the root of the
  * result, the larger element and its subtree is appended as a child of this
  * root.
  *
@@ -14,10 +14,8 @@ import prepend from "./prepend.js" ;
  * @param {Node} B The second input node.
  * @returns {Node} The input node with smallest key with .next = .prev = null.
  */
-export default function merge ( compare, A, B ) {
+export default function merge(compare, A, B) {
+	if (compare(A.value, B.value) < 0) return prepend(A, B);
 
-	if ( compare( A.value , B.value ) < 0 ) return prepend( A , B ) ;
-
-	else                                    return prepend( B , A ) ;
-
+	return prepend(B, A);
 }

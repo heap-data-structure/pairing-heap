@@ -1,7 +1,7 @@
-import merge from "./merge.js" ;
+import merge from './merge.js';
 
 /**
- * decrease-key: remove the subtree rooted at the key to be decreased, replace
+ * Decrease-key: remove the subtree rooted at the key to be decreased, replace
  * the key with a smaller key, then merge the result back into the heap.
  *
  * @param {Function} compare Comparison function for keys.
@@ -10,22 +10,21 @@ import merge from "./merge.js" ;
  * @param {Object} value The new value for the key of the node to update.
  * @returns {Node} Returns the node containing the minimum key.
  */
-export default function decreasekey ( compare , min , node , value ) {
+export default function decreasekey(compare, min, node, value) {
+	// Update node's key
+	node.value = value;
 
-	// update node's key
-	node.value = value ;
-
-	// remove node from tree
-	node.prev.next = node.next ; // by assumption node.prev != null
+	// Remove node from tree
+	node.prev.next = node.next; // By assumption node.prev != null
 	if (node.next !== null) {
-		node.next.prev = node.prev ;
-		node.next = null ;
+		node.next.prev = node.prev;
+		node.next = null;
 	}
-	node.prev = null ;
 
-	// merge, remember we move the whole subtree with children
+	node.prev = null;
+
+	// Merge, remember we move the whole subtree with children
 	// node.prev = node.next = null at this point so safe to call merge
 	// min != null and node != null
 	return merge(compare, min, node);
-
 }
