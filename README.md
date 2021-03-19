@@ -1,14 +1,16 @@
-[@aureooms/js-pairing-heap](https://aureooms.github.io/js-pairing-heap)
+:cherries: [@aureooms/js-pairing-heap](https://aureooms.github.io/js-pairing-heap)
 ==
 
 <img src="https://cdn.rawgit.com/aureooms/js-pairing-heap/main/media/sketch.svg" width="864">
 
-Pairing heap data structure library for JavaScript.
+Pairing heap data structure for JavaScript.
 See [docs](https://aureooms.github.io/js-pairing-heap/index.html).
 Parent is [@aureooms/js-heap](https://github.com/aureooms/js-heap).
 
 ```js
-let heap = new PairingHeap( compare.increasing ) ;
+import {increasing} from '@aureooms/js-compare';
+import {PairingHeap} from '@aureooms/js-pairing-heap';
+let heap = new PairingHeap( increasing ) ;
 ```
 
 [![License](https://img.shields.io/github/license/aureooms/js-pairing-heap.svg)](https://raw.githubusercontent.com/aureooms/js-pairing-heap/main/LICENSE)
@@ -26,6 +28,6 @@ let heap = new PairingHeap( compare.increasing ) ;
 [![Documentation](https://aureooms.github.io/js-pairing-heap/badge.svg)](https://aureooms.github.io/js-pairing-heap/source.html)
 
 
-## References
+## :scroll: References
 
   - [Improved bounds for multipass pairing heaps and path-balanced binary search trees](https://arxiv.org/abs/1806.08692)
