@@ -17,7 +17,7 @@
           "autoPrivate": true
         },
         "brand": {
-          "title": "aureooms/js-pairing-heap"
+          "title": "@aureooms/js-pairing-heap"
         },
         "test": {
           "type": "ava",
