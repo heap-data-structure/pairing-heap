@@ -1,1 +1,56 @@
-[]
+[
+  {
+    "name": "mergepairs",
+    "filePath": "src/mergepairs.js",
+    "lines": [
+      {
+        "lineNumber": 2,
+        "line": "/**"
+      },
+      {
+        "lineNumber": 3,
+        "line": " * Recursively builds a heap from an iterator of nodes by merging them pair by"
+      },
+      {
+        "lineNumber": 4,
+        "line": " * pair."
+      },
+      {
+        "lineNumber": 5,
+        "line": " *"
+      },
+      {
+        "lineNumber": 6,
+        "line": " * @param {Function} compare Comparison function for node keys."
+      },
+      {
+        "lineNumber": 7,
+        "line": " * @param {Node} prev Last node before first of list. First node is `prev.next`."
+      },
+      {
+        "lineNumber": 8,
+        "line": " * @returns {Node} The root node with .next = .prev = null or null for an empty"
+      },
+      {
+        "lineNumber": 9,
+        "line": " *                 iterator."
+      },
+      {
+        "lineNumber": 10,
+        "line": " */"
+      },
+      {
+        "lineNumber": 11,
+        "line": "export default function mergepairs(compare, previous) {"
+      }
+    ],
+    "codeParams": [
+      "compare",
+      "previous"
+    ],
+    "docParams": [
+      "compare",
+      "prev"
+    ]
+  }
+]

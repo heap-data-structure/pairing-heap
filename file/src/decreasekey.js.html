@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../">
-  <title data-ice="title">src/decreasekey.js | aureooms/js-pairing-heap</title>
+  <title data-ice="title">src/decreasekey.js | @aureooms/js-pairing-heap</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
   <script src="script/manual.js"></script>
-<link rel="stylesheet" href="./inject/css/0-style.css"><script src="./inject/script/0-header.js"></script><meta name="description" content="Pairing heap data structure library for JavaScript"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="aureooms/js-pairing-heap"><meta property="twitter:description" content="Pairing heap data structure library for JavaScript"></head>
+<link rel="stylesheet" href="./inject/css/0-style.css"><script src="./inject/script/0-header.js"></script><meta name="description" content="Pairing heap data structure library for JavaScript"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="@aureooms/js-pairing-heap"><meta property="twitter:description" content="Pairing heap data structure library for JavaScript"></head>
 <body class="layout-container" data-ice="rootContainer">
 
 <header>
@@ -41,10 +41,10 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/decreasekey.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import merge from &apos;./merge&apos; ;
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import merge from &apos;./merge.js&apos;;
 
 /**
- * decrease-key: remove the subtree rooted at the key to be decreased, replace
+ * Decrease-key: remove the subtree rooted at the key to be decreased, replace
  * the key with a smaller key, then merge the result back into the heap.
  *
  * @param {Function} compare Comparison function for keys.
@@ -53,24 +53,23 @@
  * @param {Object} value The new value for the key of the node to update.
  * @returns {Node} Returns the node containing the minimum key.
  */
-export default function decreasekey ( compare , min , node , value ) {
+export default function decreasekey(compare, min, node, value) {
+	// Update node&apos;s key
+	node.value = value;
 
-	// update node&apos;s key
-	node.value = value ;
-
-	// remove node from tree
-	node.prev.next = node.next ; // by assumption node.prev != null
+	// Remove node from tree
+	node.prev.next = node.next; // By assumption node.prev != null
 	if (node.next !== null) {
-		node.next.prev = node.prev ;
-		node.next = null ;
+		node.next.prev = node.prev;
+		node.next = null;
 	}
-	node.prev = null ;
 
-	// merge, remember we move the whole subtree with children
+	node.prev = null;
+
+	// Merge, remember we move the whole subtree with children
 	// node.prev = node.next = null at this point so safe to call merge
 	// min != null and node != null
 	return merge(compare, min, node);
-
 }
 </code></pre>
 
