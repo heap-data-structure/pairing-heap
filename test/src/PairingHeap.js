@@ -1,4 +1,4 @@
-
+// eslint-disable-next-line ava/use-test
 import ava from 'ava' ;
 
 import * as spec from '@aureooms/js-heap-spec' ;
