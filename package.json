@@ -41,7 +41,8 @@
     "esdoc-inject-style-plugin": "1.0.0",
     "esdoc-standard-plugin": "1.0.0",
     "np": "6.5.0",
-    "nyc": "15.1.0"
+    "nyc": "15.1.0",
+    "fixpack": "4.0.0"
   },
   "files": [
     "lib"
@@ -65,6 +66,8 @@
     "esdoc": "esdoc",
     "prepare": "npm run build",
     "release": "np",
-    "test": "ava"
+    "test": "ava",
+    "lint-config": "fixpack --dryRun",
+    "lint-config-and-fix": "fixpack || fixpack"
   }
 }
