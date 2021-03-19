@@ -1,7 +1,7 @@
-import merge from './merge' ;
-import mergepairs from './mergepairs' ;
-import decreasekey from './decreasekey' ;
-import Node from './Node' ;
+import merge from "./merge.js" ;
+import mergepairs from "./mergepairs.js" ;
+import decreasekey from "./decreasekey.js" ;
+import Node from "./Node.js" ;
 
 export default class PairingHeap {
 

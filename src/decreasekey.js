@@ -1,4 +1,4 @@
-import merge from './merge' ;
+import merge from "./merge.js" ;
 
 /**
  * decrease-key: remove the subtree rooted at the key to be decreased, replace

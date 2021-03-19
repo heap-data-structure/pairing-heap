@@ -1,9 +1,9 @@
-import Node from './Node' ;
-import PairingHeap from './PairingHeap' ;
-import prepend from './prepend' ;
-import decreasekey from './decreasekey' ;
-import merge from './merge' ;
-import mergepairs from './mergepairs' ;
+import Node from "./Node.js" ;
+import PairingHeap from "./PairingHeap.js" ;
+import prepend from "./prepend.js" ;
+import decreasekey from "./decreasekey.js" ;
+import merge from "./merge.js" ;
+import mergepairs from "./mergepairs.js" ;
 
 export default PairingHeap ;
 

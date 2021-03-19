@@ -1,4 +1,4 @@
-import prepend from './prepend' ;
+import prepend from "./prepend.js" ;
 
 /**
  * merge: compare the two root elements, the smaller remains the root of the

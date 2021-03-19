@@ -1,4 +1,4 @@
-import merge from './merge' ;
+import merge from "./merge.js" ;
 
 /**
  * Recursively builds a heap from an iterator of nodes by merging them pair by
