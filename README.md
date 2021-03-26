@@ -15,7 +15,7 @@ let heap = new PairingHeap( increasing ) ;
 
 [![License](https://img.shields.io/github/license/aureooms/js-pairing-heap.svg)](https://raw.githubusercontent.com/aureooms/js-pairing-heap/main/LICENSE)
 [![Version](https://img.shields.io/npm/v/@aureooms/js-pairing-heap.svg)](https://www.npmjs.org/package/@aureooms/js-pairing-heap)
-[![Build](https://img.shields.io/travis/aureooms/js-pairing-heap/main.svg)](https://travis-ci.com/aureooms/js-pairing-heap/branches)
+[![Tests](https://img.shields.io/github/workflow/status/aureooms/js-pairing-heap/ci:test?event=push&label=tests)](https://github.com/aureooms/js-pairing-heap/actions/workflows/ci:test.yml?query=branch:main)
 [![Dependencies](https://img.shields.io/david/aureooms/js-pairing-heap.svg)](https://david-dm.org/aureooms/js-pairing-heap)
 [![Dev dependencies](https://img.shields.io/david/dev/aureooms/js-pairing-heap.svg)](https://david-dm.org/aureooms/js-pairing-heap?type=dev)
 [![GitHub issues](https://img.shields.io/github/issues/aureooms/js-pairing-heap.svg)](https://github.com/aureooms/js-pairing-heap/issues)
