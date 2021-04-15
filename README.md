@@ -23,7 +23,7 @@ let heap = new PairingHeap( increasing ) ;
 
 [![Code issues](https://img.shields.io/codeclimate/issues/aureooms/js-pairing-heap.svg)](https://codeclimate.com/github/aureooms/js-pairing-heap/issues)
 [![Code maintainability](https://img.shields.io/codeclimate/maintainability/aureooms/js-pairing-heap.svg)](https://codeclimate.com/github/aureooms/js-pairing-heap/trends/churn)
-[![Code coverage (alls)](https://img.shields.io/coveralls/github/aureooms/js-pairing-heap/main.svg)](https://coveralls.io/r/aureooms/js-pairing-heap)
+[![Code coverage (cov)](https://img.shields.io/codecov/c/gh/aureooms/js-pairing-heap/main.svg)](https://codecov.io/gh/aureooms/js-pairing-heap)
 [![Code technical debt](https://img.shields.io/codeclimate/tech-debt/aureooms/js-pairing-heap.svg)](https://codeclimate.com/github/aureooms/js-pairing-heap/trends/technical_debt)
 [![Documentation](https://aureooms.github.io/js-pairing-heap/badge.svg)](https://aureooms.github.io/js-pairing-heap/source.html)
 [![Package size](https://img.shields.io/bundlephobia/minzip/@aureooms/js-pairing-heap)](https://bundlephobia.com/result?p=@aureooms/js-pairing-heap)
