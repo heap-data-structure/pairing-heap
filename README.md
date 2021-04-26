@@ -1,10 +1,10 @@
-:cherries: [@aureooms/js-pairing-heap](https://aureooms.github.io/js-pairing-heap)
+:cherries: [@aureooms/js-pairing-heap](https://make-github-pseudonymous-again.github.io/js-pairing-heap)
 ==
 
 <img src="https://cdn.rawgit.com/aureooms/js-pairing-heap/main/media/sketch.svg" width="864">
 
 Pairing heap data structure for JavaScript.
-See [docs](https://aureooms.github.io/js-pairing-heap/index.html).
+See [docs](https://make-github-pseudonymous-again.github.io/js-pairing-heap/index.html).
 Parent is [@aureooms/js-heap](https://github.com/aureooms/js-heap).
 
 ```js
@@ -25,7 +25,7 @@ let heap = new PairingHeap( increasing ) ;
 [![Code maintainability](https://img.shields.io/codeclimate/maintainability/aureooms/js-pairing-heap.svg)](https://codeclimate.com/github/aureooms/js-pairing-heap/trends/churn)
 [![Code coverage (cov)](https://img.shields.io/codecov/c/gh/aureooms/js-pairing-heap/main.svg)](https://codecov.io/gh/aureooms/js-pairing-heap)
 [![Code technical debt](https://img.shields.io/codeclimate/tech-debt/aureooms/js-pairing-heap.svg)](https://codeclimate.com/github/aureooms/js-pairing-heap/trends/technical_debt)
-[![Documentation](https://aureooms.github.io/js-pairing-heap/badge.svg)](https://aureooms.github.io/js-pairing-heap/source.html)
+[![Documentation](https://make-github-pseudonymous-again.github.io/js-pairing-heap/badge.svg)](https://make-github-pseudonymous-again.github.io/js-pairing-heap/source.html)
 [![Package size](https://img.shields.io/bundlephobia/minzip/@aureooms/js-pairing-heap)](https://bundlephobia.com/result?p=@aureooms/js-pairing-heap)
 
 
