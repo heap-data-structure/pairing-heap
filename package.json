@@ -7,10 +7,10 @@
   "homepage": "https://make-github-pseudonymous-again.github.io/js-pairing-heap",
   "repository": {
     "type": "git",
-    "url": "https://github.com/aureooms/js-pairing-heap"
+    "url": "https://github.com/make-github-pseudonymous-again/js-pairing-heap"
   },
   "bugs": {
-    "url": "https://github.com/aureooms/js-pairing-heap/issues"
+    "url": "https://github.com/make-github-pseudonymous-again/js-pairing-heap/issues"
   },
   "keywords": [
     "data",
