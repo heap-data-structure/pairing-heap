@@ -1,16 +1,16 @@
 {
-  "name": "@aureooms/js-pairing-heap",
+  "name": "@heap-data-structure/pairing-heap",
   "description": "Pairing heap data structure library for JavaScript",
   "version": "3.0.0",
   "license": "AGPL-3.0",
-  "author": "aureooms",
-  "homepage": "https://make-github-pseudonymous-again.github.io/js-pairing-heap",
+  "author": "make-github-pseudonymous-again",
+  "homepage": "https://heap-data-structure.github.io/pairing-heap",
   "repository": {
     "type": "git",
-    "url": "https://github.com/make-github-pseudonymous-again/js-pairing-heap"
+    "url": "https://github.com/heap-data-structure/pairing-heap"
   },
   "bugs": {
-    "url": "https://github.com/make-github-pseudonymous-again/js-pairing-heap/issues"
+    "url": "https://github.com/heap-data-structure/pairing-heap/issues"
   },
   "keywords": [
     "data",

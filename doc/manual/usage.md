@@ -10,7 +10,7 @@ import 'regenerator-runtime/runtime.js' ;
 
 Then
 ```js
-const {PairingHeap} = require( '@aureooms/js-pairing-heap' ) ;
+const {PairingHeap} = require( '@heap-data-structure/pairing-heap' ) ;
 // or
-import {PairingHeap} from '@aureooms/js-pairing-heap' ;
+import {PairingHeap} from '@heap-data-structure/pairing-heap' ;
 ```
