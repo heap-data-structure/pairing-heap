@@ -1,44 +1,44 @@
 window.esdocSearchIndex = [
   [
-    "@aureooms/js-pairing-heap/src/node.js~beginning",
+    "@heap-data-structure/pairing-heap/src/node.js~beginning",
     "class/src/Node.js~Beginning.html",
-    "<span>Beginning</span> <span class=\"search-result-import-path\">@aureooms/js-pairing-heap/src/Node.js</span>",
+    "<span>Beginning</span> <span class=\"search-result-import-path\">@heap-data-structure/pairing-heap/src/Node.js</span>",
     "class"
   ],
   [
-    "@aureooms/js-pairing-heap/src/node.js~node",
+    "@heap-data-structure/pairing-heap/src/node.js~node",
     "class/src/Node.js~Node.html",
-    "<span>Node</span> <span class=\"search-result-import-path\">@aureooms/js-pairing-heap/src/Node.js</span>",
+    "<span>Node</span> <span class=\"search-result-import-path\">@heap-data-structure/pairing-heap/src/Node.js</span>",
     "class"
   ],
   [
-    "@aureooms/js-pairing-heap/src/pairingheap.js~pairingheap",
+    "@heap-data-structure/pairing-heap/src/pairingheap.js~pairingheap",
     "class/src/PairingHeap.js~PairingHeap.html",
-    "<span>PairingHeap</span> <span class=\"search-result-import-path\">@aureooms/js-pairing-heap/src/PairingHeap.js</span>",
+    "<span>PairingHeap</span> <span class=\"search-result-import-path\">@heap-data-structure/pairing-heap/src/PairingHeap.js</span>",
     "class"
   ],
   [
-    "@aureooms/js-pairing-heap/src/decreasekey.js~decreasekey",
+    "@heap-data-structure/pairing-heap/src/decreasekey.js~decreasekey",
     "function/index.html#static-function-decreasekey",
-    "<span>decreasekey</span> <span class=\"search-result-import-path\">@aureooms/js-pairing-heap/src/decreasekey.js</span>",
+    "<span>decreasekey</span> <span class=\"search-result-import-path\">@heap-data-structure/pairing-heap/src/decreasekey.js</span>",
     "function"
   ],
   [
-    "@aureooms/js-pairing-heap/src/merge.js~merge",
+    "@heap-data-structure/pairing-heap/src/merge.js~merge",
     "function/index.html#static-function-merge",
-    "<span>merge</span> <span class=\"search-result-import-path\">@aureooms/js-pairing-heap/src/merge.js</span>",
+    "<span>merge</span> <span class=\"search-result-import-path\">@heap-data-structure/pairing-heap/src/merge.js</span>",
     "function"
   ],
   [
-    "@aureooms/js-pairing-heap/src/mergepairs.js~mergepairs",
+    "@heap-data-structure/pairing-heap/src/mergepairs.js~mergepairs",
     "function/index.html#static-function-mergepairs",
-    "<span>mergepairs</span> <span class=\"search-result-import-path\">@aureooms/js-pairing-heap/src/mergepairs.js</span>",
+    "<span>mergepairs</span> <span class=\"search-result-import-path\">@heap-data-structure/pairing-heap/src/mergepairs.js</span>",
     "function"
   ],
   [
-    "@aureooms/js-pairing-heap/src/prepend.js~prepend",
+    "@heap-data-structure/pairing-heap/src/prepend.js~prepend",
     "function/index.html#static-function-prepend",
-    "<span>prepend</span> <span class=\"search-result-import-path\">@aureooms/js-pairing-heap/src/prepend.js</span>",
+    "<span>prepend</span> <span class=\"search-result-import-path\">@heap-data-structure/pairing-heap/src/prepend.js</span>",
     "function"
   ],
   [
