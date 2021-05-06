@@ -8,7 +8,7 @@ See [docs](https://heap-data-structure.github.io/pairing-heap/index.html).
 Parent is [@heap-data-structure](https://github.com/heap-data-structure/about).
 
 ```js
-import {increasing} from '@aureooms/js-compare';
+import {increasing} from '@total-order/primitive';
 import {PairingHeap} from '@heap-data-structure/pairing-heap';
 let heap = new PairingHeap( increasing ) ;
 ```
