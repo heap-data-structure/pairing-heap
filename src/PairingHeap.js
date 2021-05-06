@@ -55,12 +55,7 @@ export default class PairingHeap {
 	 * another, except the root of another tree.
 	 */
 	pushreference(ref) {
-		if (this.min === null) this.min = ref;
-		else {
-			// This.min != null != ref
-			this.min = merge(this.compare, this.min, ref);
-		}
-
+		this.min = this.min === null ? ref : merge(this.compare, this.min, ref); // This.min != null != ref
 		return ref;
 	}
 
