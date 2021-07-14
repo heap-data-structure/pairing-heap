@@ -3,14 +3,14 @@
 The code needs a ES2015+ polyfill to work, for example
 [regenerator-runtime/runtime](https://babeljs.io/docs/usage/polyfill).
 ```js
-require( 'regenerator-runtime/runtime' ) ;
+await import( 'regenerator-runtime/runtime.js' ) ;
 // or
 import 'regenerator-runtime/runtime.js' ;
 ```
 
 Then
 ```js
-const {PairingHeap} = require( '@heap-data-structure/pairing-heap' ) ;
+const {PairingHeap} = await import( '@heap-data-structure/pairing-heap' ) ;
 // or
 import {PairingHeap} from '@heap-data-structure/pairing-heap' ;
 ```
