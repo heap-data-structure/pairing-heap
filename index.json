@@ -722,7 +722,7 @@
     "__docId__": 58,
     "kind": "file",
     "name": "src/PairingHeap.js",
-    "content": "import merge from './merge.js';\nimport mergepairs from './mergepairs.js';\nimport decreasekey from './decreasekey.js';\nimport Node from './Node.js';\n\nexport default class PairingHeap {\n\tconstructor(compare) {\n\t\tthis.compare = compare; // Comparison function\n\t\tthis.min = null; // Root node, must have .prev = .next = null at all times\n\t}\n\n\t/**\n\t * Find-min: simply return the top element of the heap.\n\t */\n\thead() {\n\t\tif (this.min === null) return undefined;\n\t\treturn this.min.value;\n\t}\n\n\theadreference() {\n\t\treturn this.min;\n\t}\n\n\t/**\n\t * Delete-min: remove the root and merge its subtrees. Various strategies\n\t * are employed.\n\t */\n\tpop() {\n\t\tconst min = this.popreference();\n\t\treturn min === null ? undefined : min.value;\n\t}\n\n\t/**\n\t */\n\tpopreference() {\n\t\tif (this.min === null) return null;\n\t\tconst min = this.min;\n\t\tthis.min = mergepairs(this.compare, min.children); // Min.children.next = null\n\t\treturn min;\n\t}\n\n\t/**\n\t * Insert: create a new heap for the inserted element and merge into the\n\t * original heap.\n\t */\n\tpush(value) {\n\t\tconst node = new Node(value);\n\t\treturn this.pushreference(node);\n\t}\n\n\t/**\n\t * /!\\ ref.next = ref.prev = null which means all references that are\n\t * external to the tree must reset .next and .prev and one must not call\n\t * PairingHeap#pushreference with an internal reference from this tree or\n\t * another, except the root of another tree.\n\t */\n\tpushreference(ref) {\n\t\tif (this.min === null) this.min = ref;\n\t\telse {\n\t\t\t// This.min != null != ref\n\t\t\tthis.min = merge(this.compare, this.min, ref);\n\t\t}\n\n\t\treturn ref;\n\t}\n\n\t/**\n\t * Supposes the same comparison function is used in both trees.\n\t * We can call pushreference since other.min.next = other.min.prev = null.\n\t */\n\tmerge(other) {\n\t\tconst ref = other.min;\n\t\tif (ref !== null) this.pushreference(ref);\n\t}\n\n\t/**\n\t * @param {Node} ref Non-null internal node object.\n\t * @param {Object} value The new value for ref.\n\t */\n\tupdate(ref, value) {\n\t\tconst d = this.compare(value, ref.value);\n\n\t\tif (d < 0) this.decreasekey(ref, value);\n\t\telse if (d > 0) this.increasekey(ref, value);\n\t\telse ref.value = value;\n\t}\n\n\t/**\n\t * Decrease-key\n\t *\n\t * @param {Node} ref Non-null internal node object.\n\t * @param {Object} value The new value for ref.\n\t */\n\tdecreasekey(ref, value) {\n\t\tif (ref === this.min) ref.value = value;\n\t\telse {\n\t\t\t// This.min != null, ref != null\n\t\t\tthis.min = decreasekey(this.compare, this.min, ref, value);\n\t\t}\n\t}\n\n\t/**\n\t * Increase-key: remove the item at the key to be increased, replace\n\t * the key with a larger key, then push the result back into the heap.\n\t *\n\t * @param {Node} ref Non-null internal node object.\n\t * @param {Object} value The new value for ref.\n\t *\n\t */\n\tincreasekey(ref, value) {\n\t\tthis.delete(ref);\n\n\t\tref.value = value;\n\n\t\tthis.pushreference(ref);\n\t}\n\n\t/**\n\t * Ref must be internal\n\t * ref.prev and ref.next get reset to null\n\t */\n\tdelete(ref) {\n\t\tif (ref === this.min) {\n\t\t\tthis.popreference();\n\t\t\treturn;\n\t\t}\n\n\t\tconst successor = mergepairs(this.compare, ref.children); // Ref.children.next = null\n\n\t\t// ref has no children\n\t\tif (successor === null) {\n\t\t\t//  _       _       _\n\t\t\t// | | --> | | --> | |\n\t\t\t// |_| <-- |_| <-- |_|\n\t\t\t//  P       R       N\n\n\t\t\t// detach ref and link ref.prev to ref.next\n\t\t\t//\n\t\t\t//  _               _\n\t\t\t// | | ----------> | |\n\t\t\t// |_| <    _   -> |_|\n\t\t\t//  P   \\  | | /  / N\n\t\t\t//       - |_| <-/\n\t\t\t//          R\n\t\t\t//\n\t\t\tref.prev.next = ref.next; // Must be != null because ref != min\n\n\t\t\tif (ref.next !== null) {\n\t\t\t\t//\n\t\t\t\t//  _               _\n\t\t\t\t// | | ----------> | |\n\t\t\t\t// |_| <---------- |_|\n\t\t\t\t//  P       _       N\n\t\t\t\t//  ^      | | -----^\n\t\t\t\t//  |----- |_|\n\t\t\t\t//          R\n\t\t\t\t//\n\t\t\t\tref.next.prev = ref.prev;\n\t\t\t\t//\n\t\t\t\t//  _               _\n\t\t\t\t// | | ----------> | |\n\t\t\t\t// |_| <---------- |_|\n\t\t\t\t//  P       _       N\n\t\t\t\t//  ^      | |\n\t\t\t\t//  |----- |_|\n\t\t\t\t//          R\n\t\t\t\t//\n\t\t\t\tref.next = null;\n\t\t\t}\n\n\t\t\t//\n\t\t\t//  _               _\n\t\t\t// | | ----------> | |\n\t\t\t// |_| <---------- |_|\n\t\t\t//  P       _       N\n\t\t\t//         | |\n\t\t\t//         |_|\n\t\t\t//          R\n\t\t\t//\n\t\t\tref.prev = null;\n\n\t\t\treturn;\n\t\t}\n\n\t\tsuccessor.prev = ref.prev; // Must be != null because ref != min\n\t\tsuccessor.prev.next = successor;\n\t\tref.prev = null;\n\n\t\tif (ref.next !== null) {\n\t\t\tsuccessor.next = ref.next; // Might be null\n\t\t\tsuccessor.next.prev = successor;\n\t\t\tref.next = null;\n\t\t}\n\t}\n}\n",
+    "content": "import merge from './merge.js';\nimport mergepairs from './mergepairs.js';\nimport decreasekey from './decreasekey.js';\nimport Node from './Node.js';\n\nexport default class PairingHeap {\n\tconstructor(compare) {\n\t\tthis.compare = compare; // Comparison function\n\t\tthis.min = null; // Root node, must have .prev = .next = null at all times\n\t}\n\n\t/**\n\t * Find-min: simply return the top element of the heap.\n\t */\n\thead() {\n\t\tif (this.min === null) return undefined;\n\t\treturn this.min.value;\n\t}\n\n\theadreference() {\n\t\treturn this.min;\n\t}\n\n\t/**\n\t * Delete-min: remove the root and merge its subtrees. Various strategies\n\t * are employed.\n\t */\n\tpop() {\n\t\tconst min = this.popreference();\n\t\treturn min === null ? undefined : min.value;\n\t}\n\n\t/**\n\t */\n\tpopreference() {\n\t\tif (this.min === null) return null;\n\t\tconst min = this.min;\n\t\tthis.min = mergepairs(this.compare, min.children); // Min.children.next = null\n\t\treturn min;\n\t}\n\n\t/**\n\t * Insert: create a new heap for the inserted element and merge into the\n\t * original heap.\n\t */\n\tpush(value) {\n\t\tconst node = new Node(value);\n\t\treturn this.pushreference(node);\n\t}\n\n\t/**\n\t * /!\\ ref.next = ref.prev = null which means all references that are\n\t * external to the tree must reset .next and .prev and one must not call\n\t * PairingHeap#pushreference with an internal reference from this tree or\n\t * another, except the root of another tree.\n\t */\n\tpushreference(ref) {\n\t\tthis.min = this.min === null ? ref : merge(this.compare, this.min, ref); // This.min != null != ref\n\t\treturn ref;\n\t}\n\n\t/**\n\t * Supposes the same comparison function is used in both trees.\n\t * We can call pushreference since other.min.next = other.min.prev = null.\n\t */\n\tmerge(other) {\n\t\tconst ref = other.min;\n\t\tif (ref !== null) this.pushreference(ref);\n\t}\n\n\t/**\n\t * @param {Node} ref Non-null internal node object.\n\t * @param {Object} value The new value for ref.\n\t */\n\tupdate(ref, value) {\n\t\tconst d = this.compare(value, ref.value);\n\n\t\tif (d < 0) this.decreasekey(ref, value);\n\t\telse if (d > 0) this.increasekey(ref, value);\n\t\telse ref.value = value;\n\t}\n\n\t/**\n\t * Decrease-key\n\t *\n\t * @param {Node} ref Non-null internal node object.\n\t * @param {Object} value The new value for ref.\n\t */\n\tdecreasekey(ref, value) {\n\t\tif (ref === this.min) ref.value = value;\n\t\telse {\n\t\t\t// This.min != null, ref != null\n\t\t\tthis.min = decreasekey(this.compare, this.min, ref, value);\n\t\t}\n\t}\n\n\t/**\n\t * Increase-key: remove the item at the key to be increased, replace\n\t * the key with a larger key, then push the result back into the heap.\n\t *\n\t * @param {Node} ref Non-null internal node object.\n\t * @param {Object} value The new value for ref.\n\t *\n\t */\n\tincreasekey(ref, value) {\n\t\tthis.delete(ref);\n\n\t\tref.value = value;\n\n\t\tthis.pushreference(ref);\n\t}\n\n\t/**\n\t * Ref must be internal\n\t * ref.prev and ref.next get reset to null\n\t */\n\tdelete(ref) {\n\t\tif (ref === this.min) {\n\t\t\tthis.popreference();\n\t\t\treturn;\n\t\t}\n\n\t\tconst successor = mergepairs(this.compare, ref.children); // Ref.children.next = null\n\n\t\t// ref has no children\n\t\tif (successor === null) {\n\t\t\t//  _       _       _\n\t\t\t// | | --> | | --> | |\n\t\t\t// |_| <-- |_| <-- |_|\n\t\t\t//  P       R       N\n\n\t\t\t// detach ref and link ref.prev to ref.next\n\t\t\t//\n\t\t\t//  _               _\n\t\t\t// | | ----------> | |\n\t\t\t// |_| <    _   -> |_|\n\t\t\t//  P   \\  | | /  / N\n\t\t\t//       - |_| <-/\n\t\t\t//          R\n\t\t\t//\n\t\t\tref.prev.next = ref.next; // Must be != null because ref != min\n\n\t\t\tif (ref.next !== null) {\n\t\t\t\t//\n\t\t\t\t//  _               _\n\t\t\t\t// | | ----------> | |\n\t\t\t\t// |_| <---------- |_|\n\t\t\t\t//  P       _       N\n\t\t\t\t//  ^      | | -----^\n\t\t\t\t//  |----- |_|\n\t\t\t\t//          R\n\t\t\t\t//\n\t\t\t\tref.next.prev = ref.prev;\n\t\t\t\t//\n\t\t\t\t//  _               _\n\t\t\t\t// | | ----------> | |\n\t\t\t\t// |_| <---------- |_|\n\t\t\t\t//  P       _       N\n\t\t\t\t//  ^      | |\n\t\t\t\t//  |----- |_|\n\t\t\t\t//          R\n\t\t\t\t//\n\t\t\t\tref.next = null;\n\t\t\t}\n\n\t\t\t//\n\t\t\t//  _               _\n\t\t\t// | | ----------> | |\n\t\t\t// |_| <---------- |_|\n\t\t\t//  P       _       N\n\t\t\t//         | |\n\t\t\t//         |_|\n\t\t\t//          R\n\t\t\t//\n\t\t\tref.prev = null;\n\n\t\t\treturn;\n\t\t}\n\n\t\tsuccessor.prev = ref.prev; // Must be != null because ref != min\n\t\tsuccessor.prev.next = successor;\n\t\tref.prev = null;\n\n\t\tif (ref.next !== null) {\n\t\t\tsuccessor.next = ref.next; // Might be null\n\t\t\tsuccessor.next.prev = successor;\n\t\t\tref.next = null;\n\t\t}\n\t}\n}\n",
     "static": true,
     "longname": "/home/runner/work/pairing-heap/pairing-heap/src/PairingHeap.js",
     "access": "public",
@@ -923,7 +923,7 @@
     }
   },
   {
-    "__docId__": 72,
+    "__docId__": 71,
     "kind": "method",
     "name": "merge",
     "memberof": "src/PairingHeap.js~PairingHeap",
@@ -933,7 +933,7 @@
     "longname": "src/PairingHeap.js~PairingHeap#merge",
     "access": "public",
     "description": "Supposes the same comparison function is used in both trees.\nWe can call pushreference since other.min.next = other.min.prev = null.",
-    "lineNumber": 71,
+    "lineNumber": 66,
     "params": [
       {
         "name": "other",
@@ -945,7 +945,7 @@
     "return": null
   },
   {
-    "__docId__": 73,
+    "__docId__": 72,
     "kind": "method",
     "name": "update",
     "memberof": "src/PairingHeap.js~PairingHeap",
@@ -955,7 +955,7 @@
     "longname": "src/PairingHeap.js~PairingHeap#update",
     "access": "public",
     "description": "",
-    "lineNumber": 80,
+    "lineNumber": 75,
     "params": [
       {
         "nullable": null,
@@ -981,7 +981,7 @@
     "return": null
   },
   {
-    "__docId__": 74,
+    "__docId__": 73,
     "kind": "method",
     "name": "decreasekey",
     "memberof": "src/PairingHeap.js~PairingHeap",
@@ -991,7 +991,43 @@
     "longname": "src/PairingHeap.js~PairingHeap#decreasekey",
     "access": "public",
     "description": "Decrease-key",
-    "lineNumber": 94,
+    "lineNumber": 89,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Node"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "ref",
+        "description": "Non-null internal node object."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "value",
+        "description": "The new value for ref."
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 75,
+    "kind": "method",
+    "name": "increasekey",
+    "memberof": "src/PairingHeap.js~PairingHeap",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/PairingHeap.js~PairingHeap#increasekey",
+    "access": "public",
+    "description": "Increase-key: remove the item at the key to be increased, replace\nthe key with a larger key, then push the result back into the heap.",
+    "lineNumber": 105,
     "params": [
       {
         "nullable": null,
@@ -1019,42 +1055,6 @@
   {
     "__docId__": 76,
     "kind": "method",
-    "name": "increasekey",
-    "memberof": "src/PairingHeap.js~PairingHeap",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/PairingHeap.js~PairingHeap#increasekey",
-    "access": "public",
-    "description": "Increase-key: remove the item at the key to be increased, replace\nthe key with a larger key, then push the result back into the heap.",
-    "lineNumber": 110,
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "Node"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "ref",
-        "description": "Non-null internal node object."
-      },
-      {
-        "nullable": null,
-        "types": [
-          "Object"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "value",
-        "description": "The new value for ref."
-      }
-    ],
-    "return": null
-  },
-  {
-    "__docId__": 77,
-    "kind": "method",
     "name": "delete",
     "memberof": "src/PairingHeap.js~PairingHeap",
     "generator": false,
@@ -1063,7 +1063,7 @@
     "longname": "src/PairingHeap.js~PairingHeap#delete",
     "access": "public",
     "description": "Ref must be internal\nref.prev and ref.next get reset to null",
-    "lineNumber": 122,
+    "lineNumber": 117,
     "params": [
       {
         "name": "ref",
@@ -1075,7 +1075,7 @@
     "return": null
   },
   {
-    "__docId__": 78,
+    "__docId__": 77,
     "kind": "file",
     "name": "src/decreasekey.js",
     "content": "import merge from './merge.js';\n\n/**\n * Decrease-key: remove the subtree rooted at the key to be decreased, replace\n * the key with a smaller key, then merge the result back into the heap.\n *\n * @param {Function} compare Comparison function for keys.\n * @param {Node} min Current minimum-key node != null with .prev = .next = null.\n * @param {Node} node Node != null to update with .prev != null.\n * @param {Object} value The new value for the key of the node to update.\n * @returns {Node} Returns the node containing the minimum key.\n */\nexport default function decreasekey(compare, min, node, value) {\n\t// Update node's key\n\tnode.value = value;\n\n\t// Remove node from tree\n\tnode.prev.next = node.next; // By assumption node.prev != null\n\tif (node.next !== null) {\n\t\tnode.next.prev = node.prev;\n\t\tnode.next = null;\n\t}\n\n\tnode.prev = null;\n\n\t// Merge, remember we move the whole subtree with children\n\t// node.prev = node.next = null at this point so safe to call merge\n\t// min != null and node != null\n\treturn merge(compare, min, node);\n}\n",
@@ -1086,7 +1086,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 79,
+    "__docId__": 78,
     "kind": "function",
     "name": "decreasekey",
     "memberof": "src/decreasekey.js",
@@ -1158,7 +1158,7 @@
     }
   },
   {
-    "__docId__": 80,
+    "__docId__": 79,
     "kind": "file",
     "name": "src/index.js",
     "content": "export {default as Node} from './Node.js';\nexport {default as PairingHeap} from './PairingHeap.js';\nexport {default as decreasekey} from './decreasekey.js';\nexport {default as merge} from './merge.js';\nexport {default as mergepairs} from './mergepairs.js';\nexport {default as prepend} from './prepend.js';\n",
@@ -1169,7 +1169,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 81,
+    "__docId__": 80,
     "kind": "file",
     "name": "src/merge.js",
     "content": "import prepend from './prepend.js';\n\n/**\n * Merge: compare the two root elements, the smaller remains the root of the\n * result, the larger element and its subtree is appended as a child of this\n * root.\n *\n * /!\\ Precondition:\n *   1. A != null and A.next = A.prev = null\n *   2. B != null and B.next = B.prev = null\n *\n * @param {Function} compare Comparison functions for keys.\n * @param {Node} A The first input node.\n * @param {Node} B The second input node.\n * @returns {Node} The input node with smallest key with .next = .prev = null.\n */\nexport default function merge(compare, A, B) {\n\tif (compare(A.value, B.value) < 0) return prepend(A, B);\n\n\treturn prepend(B, A);\n}\n",
@@ -1180,7 +1180,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 82,
+    "__docId__": 81,
     "kind": "function",
     "name": "merge",
     "memberof": "src/merge.js",
@@ -1242,7 +1242,7 @@
     }
   },
   {
-    "__docId__": 83,
+    "__docId__": 82,
     "kind": "file",
     "name": "src/mergepairs.js",
     "content": "import merge from './merge.js';\n\n/**\n * Recursively builds a heap from an iterator of nodes by merging them pair by\n * pair.\n *\n * @param {Function} compare Comparison function for node keys.\n * @param {Node} prev Last node before first of list. First node is `prev.next`.\n * @returns {Node} The root node with .next = .prev = null or null for an empty\n *                 iterator.\n */\nexport default function mergepairs(compare, previous) {\n\t// Unpick linked list starting at prev.next\n\n\tconst A = previous.next;\n\tprevious.next = null;\n\n\tif (A === null) return null;\n\tA.prev = null;\n\n\tconst B = A.next;\n\tA.next = null;\n\n\tif (B === null) return A;\n\tB.prev = null;\n\n\t// Recursion fairy for the rest of the heap\n\tconst tail = mergepairs(compare, B); // Sets B.next = null\n\n\t// merge A != null with B != null\n\tconst head = merge(compare, A, B); // Call to merge is valid\n\n\t// merge with the rest\n\tif (tail === null) return head;\n\n\t// Head != null, tail != null\n\treturn merge(compare, head, tail); // Also valid because tail and head\n\t// are outputs of merge{pairs}\n}\n",
@@ -1253,7 +1253,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 84,
+    "__docId__": 83,
     "kind": "function",
     "name": "mergepairs",
     "memberof": "src/mergepairs.js",
@@ -1305,7 +1305,7 @@
     }
   },
   {
-    "__docId__": 85,
+    "__docId__": 84,
     "kind": "file",
     "name": "src/prepend.js",
     "content": "/**\n * Set B as the first child of A.\n *\n * /!\\ Precondition:\n *   1. A != null\n *   2. B != null\n *   3. A.next = A.prev = B.next = B.prev = null\n *\n * @param {Node} A\n * @param {Node} B\n * @return {Node} The input node A with .next = .prev = null.\n */\nexport default function prepend(A, B) {\n\tB.prev = A.children;\n\tB.next = A.children.next;\n\tA.children.next = B;\n\n\tif (B.next !== null) B.next.prev = B;\n\n\treturn A;\n}\n",
@@ -1316,7 +1316,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 86,
+    "__docId__": 85,
     "kind": "function",
     "name": "prepend",
     "memberof": "src/prepend.js",
@@ -1363,7 +1363,7 @@
   },
   {
     "kind": "index",
-    "content": ":cherries: [@heap-data-structure/pairing-heap](https://heap-data-structure.github.io/pairing-heap)\n==\n\n<img src=\"https://cdn.rawgit.com/heap-data-structure/pairing-heap/main/media/sketch.svg\" width=\"864\">\n\nPairing heap data structure for JavaScript.\nSee [docs](https://heap-data-structure.github.io/pairing-heap/index.html).\nParent is [@heap-data-structure](https://github.com/heap-data-structure/about).\n\n```js\nimport {increasing} from '@aureooms/js-compare';\nimport {PairingHeap} from '@heap-data-structure/pairing-heap';\nlet heap = new PairingHeap( increasing ) ;\n```\n\n[![License](https://img.shields.io/github/license/heap-data-structure/pairing-heap.svg)](https://raw.githubusercontent.com/heap-data-structure/pairing-heap/main/LICENSE)\n[![Version](https://img.shields.io/npm/v/@heap-data-structure/pairing-heap.svg)](https://www.npmjs.org/package/@heap-data-structure/pairing-heap)\n[![Tests](https://img.shields.io/github/workflow/status/heap-data-structure/pairing-heap/ci:test?event=push&label=tests)](https://github.com/heap-data-structure/pairing-heap/actions/workflows/ci:test.yml?query=branch:main)\n[![Dependencies](https://img.shields.io/david/heap-data-structure/pairing-heap.svg)](https://david-dm.org/heap-data-structure/pairing-heap)\n[![Dev dependencies](https://img.shields.io/david/dev/heap-data-structure/pairing-heap.svg)](https://david-dm.org/heap-data-structure/pairing-heap?type=dev)\n[![GitHub issues](https://img.shields.io/github/issues/heap-data-structure/pairing-heap.svg)](https://github.com/heap-data-structure/pairing-heap/issues)\n[![Downloads](https://img.shields.io/npm/dm/@heap-data-structure/pairing-heap.svg)](https://www.npmjs.org/package/@heap-data-structure/pairing-heap)\n\n[![Code issues](https://img.shields.io/codeclimate/issues/heap-data-structure/pairing-heap.svg)](https://codeclimate.com/github/heap-data-structure/pairing-heap/issues)\n[![Code maintainability](https://img.shields.io/codeclimate/maintainability/heap-data-structure/pairing-heap.svg)](https://codeclimate.com/github/heap-data-structure/pairing-heap/trends/churn)\n[![Code coverage (cov)](https://img.shields.io/codecov/c/gh/heap-data-structure/pairing-heap/main.svg)](https://codecov.io/gh/heap-data-structure/pairing-heap)\n[![Code technical debt](https://img.shields.io/codeclimate/tech-debt/heap-data-structure/pairing-heap.svg)](https://codeclimate.com/github/heap-data-structure/pairing-heap/trends/technical_debt)\n[![Documentation](https://heap-data-structure.github.io/pairing-heap/badge.svg)](https://heap-data-structure.github.io/pairing-heap/source.html)\n[![Package size](https://img.shields.io/bundlephobia/minzip/@heap-data-structure/pairing-heap)](https://bundlephobia.com/result?p=@heap-data-structure/pairing-heap)\n\n\n## :scroll: References\n\n  - [Improved bounds for multipass pairing heaps and path-balanced binary search trees](https://arxiv.org/abs/1806.08692)\n",
+    "content": ":cherries: [@heap-data-structure/pairing-heap](https://heap-data-structure.github.io/pairing-heap)\n==\n\n<img src=\"https://cdn.rawgit.com/heap-data-structure/pairing-heap/main/media/sketch.svg\" width=\"864\">\n\nPairing heap data structure for JavaScript.\nSee [docs](https://heap-data-structure.github.io/pairing-heap/index.html).\nParent is [@heap-data-structure](https://github.com/heap-data-structure/about).\n\n```js\nimport {increasing} from '@total-order/primitive';\nimport {PairingHeap} from '@heap-data-structure/pairing-heap';\nlet heap = new PairingHeap( increasing ) ;\n```\n\n[![License](https://img.shields.io/github/license/heap-data-structure/pairing-heap.svg)](https://raw.githubusercontent.com/heap-data-structure/pairing-heap/main/LICENSE)\n[![Version](https://img.shields.io/npm/v/@heap-data-structure/pairing-heap.svg)](https://www.npmjs.org/package/@heap-data-structure/pairing-heap)\n[![Tests](https://img.shields.io/github/workflow/status/heap-data-structure/pairing-heap/ci:test?event=push&label=tests)](https://github.com/heap-data-structure/pairing-heap/actions/workflows/ci:test.yml?query=branch:main)\n[![Dependencies](https://img.shields.io/david/heap-data-structure/pairing-heap.svg)](https://david-dm.org/heap-data-structure/pairing-heap)\n[![Dev dependencies](https://img.shields.io/david/dev/heap-data-structure/pairing-heap.svg)](https://david-dm.org/heap-data-structure/pairing-heap?type=dev)\n[![GitHub issues](https://img.shields.io/github/issues/heap-data-structure/pairing-heap.svg)](https://github.com/heap-data-structure/pairing-heap/issues)\n[![Downloads](https://img.shields.io/npm/dm/@heap-data-structure/pairing-heap.svg)](https://www.npmjs.org/package/@heap-data-structure/pairing-heap)\n\n[![Code issues](https://img.shields.io/codeclimate/issues/heap-data-structure/pairing-heap.svg)](https://codeclimate.com/github/heap-data-structure/pairing-heap/issues)\n[![Code maintainability](https://img.shields.io/codeclimate/maintainability/heap-data-structure/pairing-heap.svg)](https://codeclimate.com/github/heap-data-structure/pairing-heap/trends/churn)\n[![Code coverage (cov)](https://img.shields.io/codecov/c/gh/heap-data-structure/pairing-heap/main.svg)](https://codecov.io/gh/heap-data-structure/pairing-heap)\n[![Code technical debt](https://img.shields.io/codeclimate/tech-debt/heap-data-structure/pairing-heap.svg)](https://codeclimate.com/github/heap-data-structure/pairing-heap/trends/technical_debt)\n[![Documentation](https://heap-data-structure.github.io/pairing-heap/badge.svg)](https://heap-data-structure.github.io/pairing-heap/source.html)\n[![Package size](https://img.shields.io/bundlephobia/minzip/@heap-data-structure/pairing-heap)](https://bundlephobia.com/result?p=@heap-data-structure/pairing-heap)\n\n\n## :scroll: References\n\n  - [Improved bounds for multipass pairing heaps and path-balanced binary search trees](https://arxiv.org/abs/1806.08692)\n",
     "longname": "/home/runner/work/pairing-heap/pairing-heap/README.md",
     "name": "./README.md",
     "static": true,
@@ -1371,7 +1371,7 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"@heap-data-structure/pairing-heap\",\n  \"description\": \"Pairing heap data structure library for JavaScript\",\n  \"version\": \"3.0.1\",\n  \"license\": \"AGPL-3.0\",\n  \"author\": \"make-github-pseudonymous-again\",\n  \"homepage\": \"https://heap-data-structure.github.io/pairing-heap\",\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/heap-data-structure/pairing-heap\"\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/heap-data-structure/pairing-heap/issues\"\n  },\n  \"keywords\": [\n    \"data\",\n    \"heap\",\n    \"pairing\",\n    \"structure\"\n  ],\n  \"sideEffects\": false,\n  \"source\": \"src/index.js\",\n  \"main\": \"dist/index.js\",\n  \"module\": \"dist/index.module.js\",\n  \"esmodule\": \"dist/index.modern.js\",\n  \"umd:main\": \"dist/index.umd.js\",\n  \"unpkg\": \"dist/index.umd.js\",\n  \"exports\": {\n    \".\": {\n      \"browser\": \"./dist/index.module.js\",\n      \"umd\": \"./dist/index.umd.js\",\n      \"require\": \"./dist/index.js\",\n      \"default\": \"./dist/index.modern.js\"\n    }\n  },\n  \"files\": [\n    \"dist\"\n  ],\n  \"scripts\": {\n    \"build\": \"NODE_ENV=production microbundle\",\n    \"build-docs\": \"esdoc\",\n    \"build-gh-pages\": \"npm run build-docs\",\n    \"ci:test\": \"npm run lint-config && npm run lint && npm run cover\",\n    \"commit-msg\": \"commitlint --edit\",\n    \"cover\": \"NODE_ENV=cover c8 --all --src src --reporter lcov --reporter text-summary --reporter text npm test\",\n    \"debug\": \"NODE_ENV=debug npm run test -- -st --fail-fast\",\n    \"dev\": \"npm run lint-config-and-fix && npm run lint-and-fix && npm run cover -- -- -st --fail-fast\",\n    \"install-hooks\": \"husky install\",\n    \"lint\": \"xo\",\n    \"lint-and-fix\": \"npm run lint -- --fix\",\n    \"lint-config\": \"fixpack --dryRun\",\n    \"lint-config-and-fix\": \"fixpack || fixpack\",\n    \"postinstall\": \"npm run install-hooks\",\n    \"postpublish\": \"pinst --enable\",\n    \"precommit\": \"lint-staged\",\n    \"prepare\": \"npm run build\",\n    \"prepublishOnly\": \"pinst --disable\",\n    \"release\": \"np --message ':hatching_chick: release: Bumping to v%s.'\",\n    \"test\": \"ava\"\n  },\n  \"dependencies\": {},\n  \"devDependencies\": {\n    \"@aureooms/js-heap-spec\": \"15.0.3\",\n    \"@babel/core\": \"7.13.16\",\n    \"@babel/preset-env\": \"7.13.15\",\n    \"@babel/register\": \"7.13.16\",\n    \"@commitlint/cli\": \"12.1.1\",\n    \"@js-library/commitlint-config\": \"0.0.4\",\n    \"ava\": \"3.15.0\",\n    \"babel-plugin-transform-remove-console\": \"6.9.4\",\n    \"babel-plugin-unassert\": \"3.0.1\",\n    \"babel-preset-power-assert\": \"3.0.0\",\n    \"c8\": \"7.7.1\",\n    \"coveralls\": \"3.1.0\",\n    \"esdoc\": \"1.1.0\",\n    \"esdoc-inject-script-plugin\": \"1.0.0\",\n    \"esdoc-inject-style-plugin\": \"1.0.0\",\n    \"esdoc-standard-plugin\": \"1.0.0\",\n    \"fixpack\": \"4.0.0\",\n    \"husky\": \"6.0.0\",\n    \"lint-staged\": \"10.5.4\",\n    \"microbundle\": \"0.13.0\",\n    \"np\": \"7.5.0\",\n    \"pinst\": \"2.1.6\",\n    \"power-assert\": \"1.6.1\",\n    \"regenerator-runtime\": \"0.13.7\",\n    \"xo\": \"0.38.2\"\n  },\n  \"ava\": {\n    \"files\": [\n      \"test/src/**/*\"\n    ],\n    \"require\": [\n      \"regenerator-runtime/runtime\",\n      \"@babel/register\"\n    ],\n    \"timeout\": \"1m\"\n  },\n  \"babel\": {\n    \"sourceMaps\": true,\n    \"presets\": [\n      [\n        \"@babel/preset-env\",\n        {\n          \"targets\": \"current node\"\n        }\n      ]\n    ],\n    \"plugins\": [\n      [\n        \"transform-remove-console\",\n        {\n          \"exclude\": [\n            \"log\",\n            \"error\",\n            \"warn\"\n          ]\n        }\n      ]\n    ],\n    \"env\": {\n      \"debug\": {\n        \"presets\": [\n          \"babel-preset-power-assert\"\n        ],\n        \"plugins\": [\n          [\n            \"transform-remove-console\",\n            {\n              \"exclude\": [\n                \"debug\",\n                \"log\",\n                \"error\",\n                \"warn\"\n              ]\n            }\n          ]\n        ]\n      },\n      \"test\": {\n        \"presets\": [\n          \"babel-preset-power-assert\"\n        ]\n      },\n      \"cover\": {\n        \"sourceMaps\": \"both\",\n        \"presets\": [\n          \"babel-preset-power-assert\"\n        ]\n      },\n      \"development\": {\n        \"presets\": [\n          [\n            \"@babel/preset-env\",\n            {\n              \"targets\": [\n                \"defaults\",\n                \"maintained node versions\"\n              ]\n            }\n          ],\n          \"babel-preset-power-assert\"\n        ]\n      },\n      \"production\": {\n        \"presets\": [\n          [\n            \"@babel/preset-env\",\n            {\n              \"targets\": [\n                \"defaults\",\n                \"maintained node versions\"\n              ]\n            }\n          ]\n        ],\n        \"plugins\": [\n          \"babel-plugin-unassert\"\n        ]\n      }\n    }\n  },\n  \"lint-staged\": {\n    \"*.js\": [\n      \"npm run lint-and-fix\"\n    ],\n    \"package.json\": [\n      \"npm run lint-config-and-fix\"\n    ]\n  },\n  \"prettier\": {\n    \"trailingComma\": \"all\"\n  },\n  \"xo\": {\n    \"prettier\": true,\n    \"plugins\": [\n      \"unicorn\"\n    ],\n    \"rules\": {\n      \"unicorn/filename-case\": \"off\"\n    },\n    \"overrides\": [\n      {\n        \"files\": [\n          \"doc/**\"\n        ],\n        \"env\": \"browser\"\n      }\n    ]\n  }\n}\n",
+    "content": "{\n  \"name\": \"@heap-data-structure/pairing-heap\",\n  \"description\": \"Pairing heap data structure library for JavaScript\",\n  \"version\": \"4.0.0\",\n  \"license\": \"AGPL-3.0\",\n  \"author\": \"make-github-pseudonymous-again\",\n  \"homepage\": \"https://heap-data-structure.github.io/pairing-heap\",\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/heap-data-structure/pairing-heap\"\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/heap-data-structure/pairing-heap/issues\"\n  },\n  \"keywords\": [\n    \"data\",\n    \"heap\",\n    \"pairing\",\n    \"structure\"\n  ],\n  \"sideEffects\": false,\n  \"type\": \"module\",\n  \"source\": \"src/index.js\",\n  \"main\": \"dist/index.cjs\",\n  \"module\": \"dist/index.module.js\",\n  \"esmodule\": \"dist/index.modern.js\",\n  \"umd:main\": \"dist/index.umd.js\",\n  \"unpkg\": \"dist/index.umd.js\",\n  \"exports\": {\n    \".\": {\n      \"browser\": \"./dist/index.module.js\",\n      \"umd\": \"./dist/index.umd.js\",\n      \"require\": \"./dist/index.cjs\",\n      \"default\": \"./dist/index.modern.js\"\n    }\n  },\n  \"files\": [\n    \"dist\"\n  ],\n  \"scripts\": {\n    \"build\": \"NODE_ENV=production microbundle\",\n    \"build-docs\": \"esdoc\",\n    \"build-gh-pages\": \"npm run build-docs\",\n    \"ci:build\": \"npm run build\",\n    \"ci:test\": \"npm run lint-config && npm run lint && npm run cover\",\n    \"commit-msg\": \"commitlint --edit\",\n    \"cover\": \"NODE_ENV=cover c8 --all --src src --reporter lcov --reporter text-summary --reporter text npm test\",\n    \"debug\": \"NODE_ENV=debug npm run test -- -st --fail-fast\",\n    \"dev\": \"npm run lint-config-and-fix && npm run lint-and-fix && npm run cover -- -- -st --fail-fast\",\n    \"install-hooks\": \"husky install\",\n    \"lint\": \"xo\",\n    \"lint-and-fix\": \"npm run lint -- --fix\",\n    \"lint-config\": \"fixpack --dryRun\",\n    \"lint-config-and-fix\": \"fixpack || fixpack\",\n    \"postinstall\": \"npm run install-hooks\",\n    \"postpublish\": \"pinst --enable\",\n    \"precommit\": \"lint-staged\",\n    \"prepare\": \"npm run build\",\n    \"prepublishOnly\": \"pinst --disable\",\n    \"release\": \"np --message ':hatching_chick: release: Bumping to v%s.'\",\n    \"test\": \"ava\"\n  },\n  \"dependencies\": {},\n  \"devDependencies\": {\n    \"@aureooms/js-heap-spec\": \"15.0.3\",\n    \"@babel/core\": \"7.14.6\",\n    \"@babel/preset-env\": \"7.14.7\",\n    \"@babel/register\": \"7.14.5\",\n    \"@commitlint/cli\": \"12.1.4\",\n    \"@js-library/commitlint-config\": \"0.0.4\",\n    \"ava\": \"3.15.0\",\n    \"babel-plugin-transform-remove-console\": \"6.9.4\",\n    \"babel-plugin-unassert\": \"3.1.0\",\n    \"babel-preset-power-assert\": \"3.0.0\",\n    \"c8\": \"7.7.3\",\n    \"esdoc\": \"1.1.0\",\n    \"esdoc-inject-script-plugin\": \"1.0.0\",\n    \"esdoc-inject-style-plugin\": \"1.0.0\",\n    \"esdoc-standard-plugin\": \"1.0.0\",\n    \"fixpack\": \"4.0.0\",\n    \"husky\": \"7.0.1\",\n    \"lint-staged\": \"11.0.1\",\n    \"microbundle\": \"0.13.1\",\n    \"np\": \"7.5.0\",\n    \"pinst\": \"2.1.6\",\n    \"power-assert\": \"1.6.1\",\n    \"regenerator-runtime\": \"0.13.7\",\n    \"xo\": \"0.41.0\"\n  },\n  \"ava\": {\n    \"files\": [\n      \"test/src/**/*\"\n    ],\n    \"require\": [\n      \"regenerator-runtime/runtime\",\n      \"@babel/register\"\n    ],\n    \"timeout\": \"1m\"\n  },\n  \"babel\": {\n    \"sourceMaps\": true,\n    \"presets\": [\n      [\n        \"@babel/preset-env\",\n        {\n          \"targets\": \"current node\"\n        }\n      ]\n    ],\n    \"plugins\": [\n      [\n        \"transform-remove-console\",\n        {\n          \"exclude\": [\n            \"log\",\n            \"error\",\n            \"warn\"\n          ]\n        }\n      ]\n    ],\n    \"env\": {\n      \"debug\": {\n        \"presets\": [\n          \"babel-preset-power-assert\"\n        ],\n        \"plugins\": [\n          [\n            \"transform-remove-console\",\n            {\n              \"exclude\": [\n                \"debug\",\n                \"log\",\n                \"error\",\n                \"warn\"\n              ]\n            }\n          ]\n        ]\n      },\n      \"test\": {\n        \"presets\": [\n          \"babel-preset-power-assert\"\n        ]\n      },\n      \"cover\": {\n        \"sourceMaps\": \"both\",\n        \"presets\": [\n          \"babel-preset-power-assert\"\n        ]\n      },\n      \"development\": {\n        \"presets\": [\n          [\n            \"@babel/preset-env\",\n            {\n              \"targets\": [\n                \"defaults\",\n                \"maintained node versions\"\n              ]\n            }\n          ],\n          \"babel-preset-power-assert\"\n        ]\n      },\n      \"production\": {\n        \"presets\": [\n          [\n            \"@babel/preset-env\",\n            {\n              \"targets\": [\n                \"defaults\",\n                \"maintained node versions\"\n              ]\n            }\n          ]\n        ],\n        \"plugins\": [\n          \"babel-plugin-unassert\"\n        ]\n      }\n    }\n  },\n  \"lint-staged\": {\n    \"*.js\": [\n      \"npm run lint-and-fix\"\n    ],\n    \"package.json\": [\n      \"npm run lint-config-and-fix\"\n    ]\n  },\n  \"prettier\": {\n    \"trailingComma\": \"all\"\n  },\n  \"xo\": {\n    \"prettier\": true,\n    \"plugins\": [\n      \"unicorn\"\n    ],\n    \"rules\": {\n      \"unicorn/filename-case\": \"off\"\n    },\n    \"overrides\": [\n      {\n        \"files\": [\n          \"doc/**\"\n        ],\n        \"env\": \"browser\"\n      }\n    ]\n  }\n}\n",
     "longname": "/home/runner/work/pairing-heap/pairing-heap/package.json",
     "name": "package.json",
     "static": true,
@@ -1405,7 +1405,7 @@
     "kind": "manual",
     "longname": "/home/runner/work/pairing-heap/pairing-heap/doc/manual/usage.md",
     "name": "./doc/manual/usage.md",
-    "content": "# Usage\n\nThe code needs a ES2015+ polyfill to work, for example\n[regenerator-runtime/runtime](https://babeljs.io/docs/usage/polyfill).\n```js\nrequire( 'regenerator-runtime/runtime' ) ;\n// or\nimport 'regenerator-runtime/runtime.js' ;\n```\n\nThen\n```js\nconst {PairingHeap} = require( '@heap-data-structure/pairing-heap' ) ;\n// or\nimport {PairingHeap} from '@heap-data-structure/pairing-heap' ;\n```\n",
+    "content": "# Usage\n\nThe code needs a ES2015+ polyfill to work, for example\n[regenerator-runtime/runtime](https://babeljs.io/docs/usage/polyfill).\n```js\nawait import( 'regenerator-runtime/runtime.js' ) ;\n// or\nimport 'regenerator-runtime/runtime.js' ;\n```\n\nThen\n```js\nconst {PairingHeap} = await import( '@heap-data-structure/pairing-heap' ) ;\n// or\nimport {PairingHeap} from '@heap-data-structure/pairing-heap' ;\n```\n",
     "static": true,
     "access": "public"
   },
