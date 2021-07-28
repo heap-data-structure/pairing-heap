@@ -1,7 +1,9 @@
 :cherries: [@heap-data-structure/pairing-heap](https://heap-data-structure.github.io/pairing-heap)
 ==
 
-<img src="https://cdn.rawgit.com/heap-data-structure/pairing-heap/main/media/sketch.svg" width="864">
+<p align="center">
+<img src="https://raw.githubusercontent.com/heap-data-structure/pairing-heap/main/media/sketch.svg" width="400">
+</p>
 
 Pairing heap data structure for JavaScript.
 See [docs](https://heap-data-structure.github.io/pairing-heap/index.html).
