@@ -3,7 +3,7 @@ import ava from 'ava';
 
 import * as spec from '@heap-data-structure/specification';
 
-import {PairingHeap} from '../../src/index.js';
+import {PairingHeap} from '#module';
 
 const heaps = [['PairingHeap', (compare) => new PairingHeap(compare)]];
 
