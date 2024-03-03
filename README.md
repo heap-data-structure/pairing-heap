@@ -18,8 +18,7 @@ let heap = new PairingHeap( increasing ) ;
 [![License](https://img.shields.io/github/license/heap-data-structure/pairing-heap.svg)](https://raw.githubusercontent.com/heap-data-structure/pairing-heap/main/LICENSE)
 [![Version](https://img.shields.io/npm/v/@heap-data-structure/pairing-heap.svg)](https://www.npmjs.org/package/@heap-data-structure/pairing-heap)
 [![Tests](https://img.shields.io/github/workflow/status/heap-data-structure/pairing-heap/ci:test?event=push&label=tests)](https://github.com/heap-data-structure/pairing-heap/actions/workflows/ci:test.yml?query=branch:main)
-[![Dependencies](https://img.shields.io/david/heap-data-structure/pairing-heap.svg)](https://david-dm.org/heap-data-structure/pairing-heap)
-[![Dev dependencies](https://img.shields.io/david/dev/heap-data-structure/pairing-heap.svg)](https://david-dm.org/heap-data-structure/pairing-heap?type=dev)
+[![Dependencies](https://img.shields.io/librariesio/github/heap-data-structure/pairing-heap.svg)](https://github.com/heap-data-structure/pairing-heap/network/dependencies)
 [![GitHub issues](https://img.shields.io/github/issues/heap-data-structure/pairing-heap.svg)](https://github.com/heap-data-structure/pairing-heap/issues)
 [![Downloads](https://img.shields.io/npm/dm/@heap-data-structure/pairing-heap.svg)](https://www.npmjs.org/package/@heap-data-structure/pairing-heap)
 
